@@ -1,6 +1,7 @@
 import { Menu, X } from "lucide-react";
 import { AnimatePresence, motion, type Variants } from "motion/react";
 import { useState } from "react";
+import { buttonVariants } from "./ui/button";
 
 const NAV_LINKS = [
 	{ label: "Home", href: "#home" },
@@ -66,7 +67,7 @@ export default function Navbar() {
 
 					<a
 						href="#book-a-call"
-						className="flex items-center justify-center rounded-sm bg-surface-action-secondary px-3 py-1.5 text-center font-medium text-on-action text-paragraph lg:px-4 lg:py-2"
+						className={buttonVariants({ variant: "solid" })}
 					>
 						Book a Call
 					</a>

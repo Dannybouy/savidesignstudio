@@ -1,6 +1,7 @@
 import { motion, type Variants } from "motion/react";
 import griddedPattern from "../assets/gridded-pattern.avif";
 import heroImage from "../assets/hero-image.avif";
+import { buttonVariants } from "./ui/button";
 
 const HEADLINE = "Designing experiences and brands people love and remember";
 
@@ -133,21 +134,24 @@ export default function Hero() {
 					>
 						<a
 							href="#book-a-call"
-							className="group flex h-10 items-center gap-2 rounded-sm bg-action-gradient py-1 pr-1 pl-2 font-medium text-on-action text-paragraph shadow-[inset_-2px_2px_2px_0_rgb(255_255_255/0.25)] transition-transform duration-200 hover:-translate-y-0.5 focus-visible:-translate-y-0.5"
+							className={buttonVariants({ size: "cta", variant: "cta" })}
 						>
 							Grab A Free Call
-							<span className="grid h-8 w-8 shrink-0 place-items-center rounded-sm bg-surface-page shadow-[inset_-2px_2px_2px_0_rgb(255_255_255/0.25)]">
+							<span
+								aria-hidden
+								className="grid h-8 w-8 shrink-0 place-items-center rounded-sm bg-surface-page shadow-[inset_-2px_2px_2px_0_rgb(255_255_255/0.25)]"
+							>
 								<img
 									src="/icons/arrow-up-right.svg"
 									alt=""
-									className="size-5 transition-transform duration-200 ease-out group-hover:translate-x-px group-hover:-translate-y-px"
+									className="size-5 transition-transform duration-200 ease-out group-hover/button:translate-x-px group-hover/button:-translate-y-px"
 								/>
 							</span>
 						</a>
 
 						<a
 							href="#contact"
-							className="flex h-10 items-center rounded-sm border border-border-default px-3 font-medium text-heading text-paragraph transition-colors duration-200 hover:border-heading"
+							className={buttonVariants({ variant: "outline" })}
 						>
 							Chat with us
 						</a>
