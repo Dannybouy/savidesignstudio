@@ -1,0 +1,97 @@
+@import "tailwindcss";
+
+@font-face {
+	font-family: "Satoshi";
+	src: url("./assets/Satoshi-Medium.woff2") format("woff2");
+	font-weight: 500;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: "Inter";
+	src: url("./assets/Inter.woff2") format("woff2");
+	font-weight: 400;
+	font-style: normal;
+	font-display: swap;
+}
+
+@theme {
+	--font-heading: "Satoshi", ui-sans-serif, system-ui, sans-serif;
+	--font-body: "Inter", ui-sans-serif, system-ui, sans-serif;
+
+	/* Surfaces */
+	--color-surface-page: hsl(0 0% 100%);
+	--color-surface-default: hsl(0 0% 98%);
+	--color-surface-disabled: hsl(0 0% 90%);
+	--color-surface-action: hsl(236 56% 15%);
+	--color-surface-action-secondary: hsl(255 30% 51%);
+
+	/* Text */
+	--color-heading: hsl(0 0% 15%);
+	--color-body-primary: hsl(0 0% 25%);
+	--color-body-secondary: hsl(0 0% 45%);
+	--color-on-action: hsl(0 0% 100%);
+
+	/* Borders */
+	--color-border-default: hsl(0 0% 83%);
+
+	/* Hairline used for the layout grid rules and section dividers */
+	--color-hairline: hsl(45 33% 93%);
+
+	/* Display and heading scale */
+	--text-display-2: 3.5rem;
+	--text-display-2--line-height: 4rem;
+	--text-display-2--letter-spacing: -2px;
+	--text-h2: 2rem;
+	--text-h2--line-height: 2.25rem;
+	--text-h2--letter-spacing: -1px;
+
+	/* Body copy scale */
+	--text-paragraph-lg: 1.125rem;
+	--text-paragraph-lg--line-height: 1.5rem;
+	--text-paragraph-lg--letter-spacing: -0.5px;
+	--text-paragraph: 1rem;
+	--text-paragraph--line-height: 1.25rem;
+	--text-paragraph--letter-spacing: -0.5px;
+	--text-paragraph-sm: 0.875rem;
+	--text-paragraph-sm--line-height: 1.125rem;
+	--text-paragraph-sm--letter-spacing: -0.5px;
+}
+
+/* Deep navy action fill lit by an off-canvas violet source at the top-right,
+   sized in percentages so it holds its shape at any button width. */
+@utility bg-action-gradient {
+	background-color: var(--color-surface-action);
+	background-image: radial-gradient(
+		99% 75% at 96% 4%,
+		var(--color-surface-action-secondary) 0%,
+		transparent 100%
+	);
+}
+
+@layer base {
+	:root {
+		/* Sticky nav height, border-box so the bottom hairline is included. */
+		--nav-h: 4rem;
+	}
+
+	@media (width >= 64rem) {
+		:root {
+			--nav-h: 4.75rem;
+		}
+	}
+
+	body {
+		@apply bg-surface-page font-body text-body-primary;
+	}
+
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		@apply font-heading font-medium text-heading;
+	}
+}
