@@ -34,7 +34,6 @@ export default function App() {
 				<main className="relative">
 					<Hero />
 					<About />
-					<Services />
 					<Banner id="bootcamp">
 						<BannerTitle>
 							Join Savi Design Studio UI/UX Bootcamp 1.0
@@ -48,6 +47,7 @@ export default function App() {
 							See more details
 						</BannerAction>
 					</Banner>
+					<Services />
 				</main>
 			</div>
 		</MotionConfig>
