@@ -75,6 +75,18 @@
 	);
 }
 
+@utility text-stat-gradient {
+	background-image: linear-gradient(
+		58.74deg,
+		#11143c -1.85%,
+		#6e5ba7 23.02%,
+		#ffffff 70.83%
+	);
+	-webkit-background-clip: text;
+	background-clip: text;
+	color: transparent;
+}
+
 @layer base {
 	:root {
 		/* Sticky nav height, border-box so the bottom hairline is included. */
@@ -108,8 +120,6 @@
 }
 
 @theme inline {
-	--font-heading: var(--font-sans);
-	--font-sans: "Inter Variable", sans-serif;
 	--color-sidebar-ring: var(--sidebar-ring);
 	--color-sidebar-border: var(--sidebar-border);
 	--color-sidebar-accent-foreground: var(--sidebar-accent-foreground);

@@ -1,4 +1,5 @@
 import { MotionConfig } from "motion/react";
+import About from "./components/About";
 import Hero from "./components/Hero";
 import Navbar from "./components/Navbar";
 
@@ -25,6 +26,7 @@ export default function App() {
 				    can run edge to edge. */}
 				<main className="relative">
 					<Hero />
+					<About />
 				</main>
 			</div>
 		</MotionConfig>
