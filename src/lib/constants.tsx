@@ -1,7 +1,11 @@
 import clarifyhouseLogo from "@/assets/clarifyhouse.svg";
 import clarifyhouseCeo from "@/assets/clarifyhouse-ceo.png";
+import deraLogo from "@/assets/dera.svg";
+import hokLogo from "@/assets/hok.png";
 import landsafeLogo from "@/assets/landsafe.svg";
 import landsafeCeo from "@/assets/landsafe-ceo.png";
+import q247Logo from "@/assets/q247.jpg";
+import secsystemsLogo from "@/assets/secsystems.svg";
 
 export type Service = {
 	slug: string;
@@ -134,5 +138,59 @@ export const TESTIMONIALS: Testimonial[] = [
 		avatar: clarifyhouseCeo,
 		name: "Patricia Ihunwo",
 		title: "Founder & CEO",
+	},
+];
+
+export type Logo = {
+	slug: string;
+	src: string;
+	alt: string;
+};
+
+export const LOGOS: Logo[] = [
+	{ slug: "hok", src: hokLogo, alt: "HOK" },
+	{ slug: "landsafe", src: landsafeLogo, alt: "LandSafe" },
+	{ slug: "clarify", src: clarifyhouseLogo, alt: "Clarify" },
+	{ slug: "secsystems", src: secsystemsLogo, alt: "Secsystems" },
+	{ slug: "dera", src: deraLogo, alt: "dera" },
+	{ slug: "q247", src: q247Logo, alt: "Qc247" },
+];
+
+export type Faq = {
+	slug: string;
+	question: string;
+	answer: string;
+};
+
+export const FAQS: Faq[] = [
+	{
+		slug: "project-timeline",
+		question: "How long does a typical project take?",
+		answer:
+			"We craft identities that leave a lasting impressions, from logo systems to full brand guidelines that speak your language",
+	},
+	{
+		slug: "pricing",
+		question: "How much does a project cost?",
+		answer:
+			"Pricing depends on scope and deliverables, so every quote is tailored after a discovery call rather than pulled from a flat rate card.",
+	},
+	{
+		slug: "revisions",
+		question: "How many rounds of revisions do I get?",
+		answer:
+			"Every package includes two structured revision rounds per deliverable, with additional rounds available if the scope grows along the way.",
+	},
+	{
+		slug: "deliverables",
+		question: "What do I actually receive at the end?",
+		answer:
+			"Final source files, a usage guide, and every asset in the formats your team needs to ship without coming back to us for exports.",
+	},
+	{
+		slug: "communication",
+		question: "How do we communicate during the project?",
+		answer:
+			"A dedicated channel plus weekly check-ins keep you across progress, with async updates in between so nothing waits on a scheduled call.",
 	},
 ];

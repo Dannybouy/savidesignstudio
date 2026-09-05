@@ -6,6 +6,7 @@ import {
 	BannerDescription,
 	BannerTitle,
 } from "./components/Banner";
+import FAQ from "./components/FAQ";
 import Hero from "./components/Hero";
 import HowWeWork from "./components/HowWeWork";
 import Navbar from "./components/Navbar";
@@ -52,6 +53,7 @@ export default function App() {
 					<Services />
 					<HowWeWork />
 					<Testimonials />
+					<FAQ />
 				</main>
 			</div>
 		</MotionConfig>
