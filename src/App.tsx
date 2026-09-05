@@ -8,6 +8,7 @@ import {
 } from "./components/Banner";
 import Hero from "./components/Hero";
 import Navbar from "./components/Navbar";
+import Services from "./components/Services";
 
 export default function App() {
 	return (
@@ -33,6 +34,7 @@ export default function App() {
 				<main className="relative">
 					<Hero />
 					<About />
+					<Services />
 					<Banner id="bootcamp">
 						<BannerTitle>
 							Join Savi Design Studio UI/UX Bootcamp 1.0

@@ -94,7 +94,7 @@ export default function About() {
 
 					<motion.h2
 						variants={wordMask}
-						className="text-h2 lg:max-w-300 lg:text-center lg:text-h1"
+						className="text-h1-mobile lg:max-w-300 lg:text-center lg:text-h1"
 					>
 						{HEADLINE.split(" ").map((token, index) => (
 							<span
@@ -120,9 +120,13 @@ export default function About() {
 							className={`${CARD_SHELL} ${HOVER_LIFT} relative isolate border-0 text-on-action`}
 						>
 							<CardArtwork src={cardImageOne} />
-							<p className="text-lg leading-6 tracking-[-0.5px] text-on-action/90">Projects Delivered</p>
+							<p className="text-lg leading-6 tracking-[-0.5px] text-on-action/90">
+								Projects Delivered
+							</p>
 							<div className="flex flex-col gap-1">
-								<p className="text-[3.5rem] font-heading text-white leading-16 tracking-[-2px]">120+</p>
+								<p className="text-[3.5rem] font-heading text-white leading-16 tracking-[-2px]">
+									120+
+								</p>
 								<p className="text-lg leading-6 tracking-[-0.5px] text-on-action/90">
 									Collaborating with leading AI and cloud technology providers.
 								</p>
@@ -138,7 +142,9 @@ export default function About() {
 								Client&rsquo;s Satisfaction
 							</p>
 							<div className="flex flex-col gap-1">
-								<p className="text-[3.5rem] font-heading text-stat-gradient leading-16 tracking-[-2px]">98%</p>
+								<p className="text-[3.5rem] font-heading text-stat-gradient leading-16 tracking-[-2px]">
+									98%
+								</p>
 								<blockquote className="text-lg text-on-action">
 									&ldquo;Their automation strategy completely reshaped how we
 									work. It&rsquo;s efficient, intelligent, and seamless.&rdquo;
@@ -153,14 +159,12 @@ export default function About() {
 						<div
 							className={`grid h-95.5 grid-rows-[6fr_3fr] gap-4 ${HOVER_LIFT}`}
 						>
-							<Card
-								className={`${CARD_SHELL} h-auto min-h-0 bg-surface-page`}
-							>
-								<p className="text-lg text-body-secondary">
-									In The Industry
-								</p>
+							<Card className={`${CARD_SHELL} h-auto min-h-0 bg-surface-page`}>
+								<p className="text-lg text-body-secondary">In The Industry</p>
 								<div className="flex flex-col gap-1">
-									<p className="text-[3.5rem] font-heading text-[#262626] leading-16 tracking-[-2px]">10 yrs</p>
+									<p className="text-[3.5rem] font-heading text-[#262626] leading-16 tracking-[-2px]">
+										10 yrs
+									</p>
 									<p className="text-lg text-body-secondary">
 										Analyzed monthly to power smarter business strategies.
 									</p>
@@ -171,8 +175,12 @@ export default function About() {
 								className={`${CARD_SHELL} relative isolate h-auto min-h-0 flex-row items-center border-0 text-on-action`}
 							>
 								<CardArtwork src={cardImageTwo} />
-								<p className="text-lg leading-6 tracking-[-0.5px] text-on-action/90">Global Clients</p>
-								<p className="text-[3.5rem] font-heading text-white leading-16 tracking-[-2px]">20+</p>
+								<p className="text-lg leading-6 tracking-[-0.5px] text-on-action/90">
+									Global Clients
+								</p>
+								<p className="text-[3.5rem] font-heading text-white leading-16 tracking-[-2px]">
+									20+
+								</p>
 							</Card>
 						</div>
 					</motion.div>

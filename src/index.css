@@ -44,13 +44,23 @@
 	/* Hairline used for the layout grid rules and section dividers */
 	--color-hairline: hsl(45 33% 93%);
 
-	/* Display and heading scale */
+	/* Display and heading scale. `h1` drops to `h1-mobile` below `lg`, so section
+	   headlines are written as `text-h1-mobile lg:text-h1`. */
 	--text-display-2: 3.5rem;
 	--text-display-2--line-height: 4rem;
 	--text-display-2--letter-spacing: -2px;
+	--text-h1: 2.5rem;
+	--text-h1--line-height: 2.75rem;
+	--text-h1--letter-spacing: -1px;
+	--text-h1-mobile: 2rem;
+	--text-h1-mobile--line-height: 2.25rem;
+	--text-h1-mobile--letter-spacing: -1px;
 	--text-h2: 2rem;
 	--text-h2--line-height: 2.25rem;
 	--text-h2--letter-spacing: -1px;
+	--text-h3: 1.5rem;
+	--text-h3--line-height: 1.75rem;
+	--text-h3--letter-spacing: -1px;
 
 	/* Body copy scale */
 	--text-paragraph-lg: 1.125rem;
