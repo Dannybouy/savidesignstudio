@@ -7,6 +7,7 @@ import {
 	BannerTitle,
 } from "./components/Banner";
 import Hero from "./components/Hero";
+import HowWeWork from "./components/HowWeWork";
 import Navbar from "./components/Navbar";
 import Services from "./components/Services";
 
@@ -48,6 +49,7 @@ export default function App() {
 						</BannerAction>
 					</Banner>
 					<Services />
+					<HowWeWork />
 				</main>
 			</div>
 		</MotionConfig>
