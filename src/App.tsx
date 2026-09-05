@@ -1,4 +1,11 @@
 import { MotionConfig } from "motion/react";
+import About from "./components/About";
+import {
+	Banner,
+	BannerAction,
+	BannerDescription,
+	BannerTitle,
+} from "./components/Banner";
 import Hero from "./components/Hero";
 import Navbar from "./components/Navbar";
 
@@ -25,6 +32,20 @@ export default function App() {
 				    can run edge to edge. */}
 				<main className="relative">
 					<Hero />
+					<About />
+					<Banner id="bootcamp">
+						<BannerTitle>
+							Join Savi Design Studio UI/UX Bootcamp 1.0
+						</BannerTitle>
+						<BannerDescription>
+							A 6-weeks program to learn AI tools and Figma, get expert
+							mentorship, join a thriving design community, and access exclusive
+							job opportunities.
+						</BannerDescription>
+						<BannerAction href="#bootcamp-details">
+							See more details
+						</BannerAction>
+					</Banner>
 				</main>
 			</div>
 		</MotionConfig>
