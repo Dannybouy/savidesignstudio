@@ -10,6 +10,7 @@ import Hero from "./components/Hero";
 import HowWeWork from "./components/HowWeWork";
 import Navbar from "./components/Navbar";
 import Services from "./components/Services";
+import Testimonials from "./components/Testimonials";
 
 export default function App() {
 	return (
@@ -50,6 +51,7 @@ export default function App() {
 					</Banner>
 					<Services />
 					<HowWeWork />
+					<Testimonials />
 				</main>
 			</div>
 		</MotionConfig>
