@@ -1,6 +1,7 @@
 import { Accordion } from "@base-ui/react/accordion";
 import { motion, useInView, type Variants } from "motion/react";
 import { useEffect, useRef, useState } from "react";
+import { PlusMinus } from "@/components/ui/accordion";
 import { SERVICES, type Service } from "@/lib/constants";
 
 const EYEBROW = "What We Offer";
@@ -110,28 +111,6 @@ const panelRise: Variants = {
 };
 
 const PANEL_EASE = "ease-[cubic-bezier(0.32,0.72,0,1)]";
-
-// lucide draws its plus as two strokes 2 units thick spanning 14 of a 24 unit
-// box, so the bars are sized in percentages and scale with the icon the way a
-// real lucide glyph would. The vertical bar swings onto the horizontal one to
-// become the minus.
-//
-// Tailwind v4 writes `rotate` and `scale` as their own properties rather than
-// composing a `transform`, so the transitions have to name those properties or
-// the icon snaps between states.
-function PlusMinus() {
-	return (
-		<span
-			aria-hidden
-			className={`relative ml-auto block size-6 shrink-0 text-surface-action-secondary transition-[scale,color,filter] duration-300 ${PANEL_EASE} group-hover/trigger:scale-105 group-hover/trigger:brightness-90 group-aria-expanded/trigger:text-heading motion-reduce:transition-none lg:size-10`}
-		>
-			<span className="absolute top-[45.833%] left-[20.833%] h-[8.333%] w-[58.333%] rounded-full bg-current" />
-			<span
-				className={`absolute top-[20.833%] left-[45.833%] h-[58.333%] w-[8.333%] rounded-full bg-current transition-[rotate,opacity] duration-300 ${PANEL_EASE} group-aria-expanded/trigger:rotate-90 group-aria-expanded/trigger:opacity-0 motion-reduce:transition-none`}
-			/>
-		</span>
-	);
-}
 
 function ServiceMedia({
 	service,
@@ -252,12 +231,12 @@ export default function Services() {
 								className="border-hairline border-t"
 							>
 								<Accordion.Header>
-									<Accordion.Trigger className="group/trigger flex w-full items-center gap-4 rounded-sm pt-[21px] pb-5 text-left outline-none focus-visible:ring-2 focus-visible:ring-surface-action-secondary focus-visible:ring-offset-2 lg:pt-[25px] lg:pb-4">
+									<Accordion.Trigger className="group/accordion-trigger flex w-full items-center gap-4 rounded-sm pt-[21px] pb-5 text-left outline-none focus-visible:ring-2 focus-visible:ring-surface-action-secondary focus-visible:ring-offset-2 lg:pt-[25px] lg:pb-4">
 										<span className="shrink-0 text-h3 lg:w-24 lg:text-h2">
 											{String(index + 1).padStart(2, "0")}
 										</span>
 										<span className="text-h3 lg:text-h2">{service.title}</span>
-										<PlusMinus />
+										<PlusMinus className="ml-auto lg:size-10" />
 									</Accordion.Trigger>
 								</Accordion.Header>
 
