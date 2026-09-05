@@ -120,10 +120,10 @@ export default function About() {
 							className={`${CARD_SHELL} ${HOVER_LIFT} relative isolate border-0 text-on-action`}
 						>
 							<CardArtwork src={cardImageOne} />
-							<p className="text-lg leading-6 tracking-[-0.5px] text-[#f5f5f5]">Projects Delivered</p>
+							<p className="text-lg leading-6 tracking-[-0.5px] text-on-action/90">Projects Delivered</p>
 							<div className="flex flex-col gap-1">
 								<p className="text-[3.5rem] font-heading text-white leading-16 tracking-[-2px]">120+</p>
-								<p className="text-lg leading-6 tracking-[-0.5px] text-[#f5f5f5]">
+								<p className="text-lg leading-6 tracking-[-0.5px] text-on-action/90">
 									Collaborating with leading AI and cloud technology providers.
 								</p>
 							</div>
@@ -134,7 +134,7 @@ export default function About() {
 						<Card
 							className={`${CARD_SHELL} ${HOVER_LIFT} border-0 bg-black text-on-action`}
 						>
-							<p className="text-lg leading-6 tracking-[-0.5px] text-[#f5f5f5]">
+							<p className="text-lg leading-6 tracking-[-0.5px] text-on-action/90">
 								Client&rsquo;s Satisfaction
 							</p>
 							<div className="flex flex-col gap-1">
@@ -171,7 +171,7 @@ export default function About() {
 								className={`${CARD_SHELL} relative isolate h-auto min-h-0 flex-row items-center border-0 text-on-action`}
 							>
 								<CardArtwork src={cardImageTwo} />
-								<p className="text-lg leading-6 tracking-[-0.5px] text-[#f5f5f5]">Global Clients</p>
+								<p className="text-lg leading-6 tracking-[-0.5px] text-on-action/90">Global Clients</p>
 								<p className="text-[3.5rem] font-heading text-white leading-16 tracking-[-2px]">20+</p>
 							</Card>
 						</div>

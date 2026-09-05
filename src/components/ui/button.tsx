@@ -14,7 +14,7 @@ const buttonVariants = cva(
 					"bg-surface-action-secondary text-on-action hover:bg-[color-mix(in_oklab,var(--color-surface-action-secondary)_92%,black)]",
 				cta: "bg-action-gradient text-on-action shadow-[inset_-2px_2px_2px_0_rgb(255_255_255/0.25)] hover:-translate-y-0.5 focus-visible:-translate-y-0.5",
 				outline:
-					"border-border-default bg-surface-page text-heading hover:border-heading",
+					"border-border bg-background hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:border-input dark:bg-input/30 dark:hover:bg-input/50",
 				ghost: "text-heading hover:bg-surface-default",
 				link: "h-auto px-0 py-0 text-heading underline-offset-4 hover:underline",
 			},
