@@ -11,7 +11,10 @@ const twMerge = extendTailwindMerge({
 				{
 					text: [
 						"display-2",
+						"h1",
+						"h1-mobile",
 						"h2",
+						"h3",
 						"paragraph-lg",
 						"paragraph",
 						"paragraph-sm",
