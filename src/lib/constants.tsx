@@ -31,58 +31,35 @@ export const SERVICES: Service[] = [
 		description:
 			"We craft identities that leave a lasting impression, from logo systems to full brand guidelines that speak your language",
 		features: [
-			"Brand Strategy",
-			"Logo Design",
-			"Visual Identity",
-			"Style Guides",
-		],
-	},
-	{
-		slug: "web-design",
-		title: "Web Design",
-		description:
-			"We design sites that hold up on every screen and guide visitors toward the one action that matters to your business",
-		features: [
-			"Responsive Layouts",
-			"Design Systems",
-			"Landing Pages",
-			"Prototyping",
+			"Brand guidelines & systems",
+			"Logo & visual identity",
+			"Brand strategy & positioning",
 		],
 	},
 	{
 		slug: "web-development",
-		title: "Web Development",
+		title: "Web Design & Development",
 		description:
-			"We build what we design, with clean code, fast load times and a stack your team can maintain long after launch",
+			"We design and develop websites that are both beautiful and functional, ensuring they are responsive, fast, and easy to use.",
 		features: [
-			"Frontend Builds",
-			"CMS Integration",
-			"Performance",
-			"Accessibility",
+			"Marketing & company websites",
+			"Landing pages & campaign sites",
+			"Responsive & mobile-first designs",
+			"CMS setup & content architecture",
 		],
 	},
 	{
 		slug: "product-strategy",
-		title: "Product Strategy",
+		title: "Product Design",
 		description:
-			"We help you decide what to build first, turning research and business goals into a roadmap your team can ship",
+			"We design products that are not only functional but also delightful to use, ensuring they are easy to understand and navigate.",
 		features: [
-			"User Research",
-			"Roadmapping",
-			"Competitive Audits",
-			"Success Metrics",
-		],
-	},
-	{
-		slug: "ui-ux-design",
-		title: "UI/UX Design",
-		description:
-			"We shape flows and interfaces around how people actually work, so the product feels obvious the first time they open it",
-		features: [
-			"User Flows",
-			"Wireframing",
-			"Interface Design",
-			"Usability Testing",
+			"Product strategy & roadmap",
+			"Competitive analysis & benchmarking",
+			"User research & personas",
+			"User flows & wireframes",
+			"Interactive prototypes",
+			"Usability testing & feedback",
 		],
 	},
 	{
@@ -246,33 +223,75 @@ export type Faq = {
 
 export const FAQS: Faq[] = [
 	{
-		slug: "project-timeline",
-		question: "How long does a typical project take?",
+		slug: "services",
+		question: "What services does Savi Design Studio offer?",
 		answer:
-			"We craft identities that leave a lasting impressions, from logo systems to full brand guidelines that speak your language",
+			"We offer creative design services including brand identity, UI/UX design, web design, motion design, graphic design, and digital experiences tailored to your business goals.",
+	},
+	{
+		slug: "clients",
+		question: "Who do you work with?",
+		answer:
+			"We work with startups, businesses, founders, and established brands looking to build, improve, or strengthen their visual and digital presence.",
 	},
 	{
 		slug: "pricing",
 		question: "How much does a project cost?",
 		answer:
-			"Pricing depends on scope and deliverables, so every quote is tailored after a discovery call rather than pulled from a flat rate card.",
+			"Every project is different. Pricing depends on the scope, complexity, and deliverables. Once we understand your needs, we'll provide a clear proposal and quote.",
+	},
+	{
+		slug: "project-timeline",
+		question: "How long does a project take?",
+		answer:
+			"Timelines vary depending on the project. After reviewing your requirements, we'll provide an estimated timeline before we begin.",
+	},
+	{
+		slug: "design-process",
+		question: "What is your design process?",
+		answer:
+			"We start by understanding your goals, audience, and requirements. From there, we move through strategy, concept development, design, feedback, refinement, and final delivery.",
 	},
 	{
 		slug: "revisions",
-		question: "How many rounds of revisions do I get?",
+		question: "Do you offer revisions?",
 		answer:
-			"Every package includes two structured revision rounds per deliverable, with additional rounds available if the scope grows along the way.",
+			"Yes. We include revisions as part of our process to make sure the final work aligns with your goals and expectations. The number of revisions depends on the project scope.",
 	},
 	{
-		slug: "deliverables",
-		question: "What do I actually receive at the end?",
+		slug: "international-clients",
+		question: "Do you work with clients outside Nigeria?",
 		answer:
-			"Final source files, a usage guide, and every asset in the formats your team needs to ship without coming back to us for exports.",
+			"Yes. We work remotely with clients across different locations and can collaborate seamlessly online.",
 	},
 	{
-		slug: "communication",
-		question: "How do we communicate during the project?",
+		slug: "get-started",
+		question: "How can I start a project with Savi Design Studio?",
 		answer:
-			"A dedicated channel plus weekly check-ins keep you across progress, with async updates in between so nothing waits on a scheduled call.",
+			"Simply get in touch with us and tell us about your project, goals, and what you need help with. We'll review the details and guide you through the next steps.",
+	},
+];
+
+export type SocialLink = {
+	platform: "instagram" | "whatsapp" | "linkedin";
+	label: string;
+	href: string;
+};
+
+export const SOCIAL_LINKS: SocialLink[] = [
+	{
+		platform: "instagram",
+		label: "Instagram",
+		href: "https://www.instagram.com/savi_design_studio?stkn=dnZkOTFqeGVxcXR3&utm_source=qr",
+	},
+	{
+		platform: "whatsapp",
+		label: "WhatsApp",
+		href: "https://www.whatsapp.com/",
+	},
+	{
+		platform: "linkedin",
+		label: "LinkedIn",
+		href: "https://www.linkedin.com/company/savidesignstudio/",
 	},
 ];

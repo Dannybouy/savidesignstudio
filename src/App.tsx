@@ -7,6 +7,7 @@ import {
 	BannerTitle,
 } from "./components/Banner";
 import FAQ from "./components/FAQ";
+import Footer from "./components/Footer";
 import Hero from "./components/Hero";
 import HowWeWork from "./components/HowWeWork";
 import Navbar from "./components/Navbar";
@@ -57,6 +58,7 @@ export default function App() {
 					<Testimonials />
 					<FAQ />
 				</main>
+				<Footer />
 			</div>
 		</MotionConfig>
 	);

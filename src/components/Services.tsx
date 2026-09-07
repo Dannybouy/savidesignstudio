@@ -144,7 +144,7 @@ function ServiceMedia({
 	return (
 		<div
 			ref={frameRef}
-			className="aspect-[171/170] w-full overflow-hidden bg-surface-disabled lg:aspect-[147/85]"
+			className="aspect-171/170 w-full overflow-hidden bg-surface-disabled lg:aspect-147/85"
 		>
 			{hasVideo ? (
 				// Desktop crops to 1.73:1 and mobile to a square from one file, so
@@ -231,7 +231,7 @@ export default function Services() {
 								className="border-hairline border-t"
 							>
 								<Accordion.Header>
-									<Accordion.Trigger className="group/accordion-trigger flex w-full items-center gap-4 rounded-sm pt-[21px] pb-5 text-left outline-none focus-visible:ring-2 focus-visible:ring-surface-action-secondary focus-visible:ring-offset-2 lg:pt-[25px] lg:pb-4">
+									<Accordion.Trigger className="group/accordion-trigger flex w-full items-center gap-4 rounded-sm pt-5.25 pb-5 text-left outline-none focus-visible:ring-2 focus-visible:ring-surface-action-secondary focus-visible:ring-offset-2 lg:pt-6.25 lg:pb-4">
 										<span className="shrink-0 text-h3 lg:w-24 lg:text-h2">
 											{String(index + 1).padStart(2, "0")}
 										</span>
@@ -268,7 +268,7 @@ export default function Services() {
 												{service.features.map((feature) => (
 													<li
 														key={feature}
-														className="flex items-center gap-[17px]"
+														className="flex items-center gap-4.25"
 													>
 														<img
 															src="/icons/sparkle.svg"
