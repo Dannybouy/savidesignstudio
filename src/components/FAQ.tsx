@@ -86,7 +86,7 @@ function TrustedByLogos() {
 					gap={56}
 					speed={30}
 					speedOnHover={12}
-					className="[mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]"
+					className="mask-[linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]"
 				>
 					{LOGOS.map((logo) => (
 						<img
@@ -118,7 +118,7 @@ export default function FAQ() {
 
 				<div className="mt-12 border-hairline border-t lg:mt-16" />
 
-				<div className="mt-12 flex flex-col gap-10 lg:mt-16 lg:flex-row lg:gap-16">
+				<div className="mt-12 flex flex-col gap-10 lg:mt-16 lg:flex-row lg:justify-between">
 					<div className="flex flex-col items-start gap-4 lg:w-95 lg:shrink-0">
 						<motion.p
 							variants={rise}
@@ -174,7 +174,7 @@ export default function FAQ() {
 
 					<Accordion
 						defaultValue={[FAQS[0].slug]}
-						className="flex flex-col gap-3"
+						className="flex flex-col gap-3 lg:max-w-2xl"
 					>
 						{FAQS.map((faq) => (
 							<AccordionItem
@@ -182,7 +182,7 @@ export default function FAQ() {
 								value={faq.slug}
 								className="not-last:border-b-0 rounded-sm bg-surface-default px-4 lg:px-6"
 							>
-								<AccordionTrigger className="text-heading text-xl hover:no-underline">
+								<AccordionTrigger className="text-heading text-xl font-medium hover:no-underline">
 									{faq.question}
 								</AccordionTrigger>
 								<AccordionContent className="text-base text-body-secondary">

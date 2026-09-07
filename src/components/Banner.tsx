@@ -1,5 +1,6 @@
 import { type HTMLMotionProps, motion, type Variants } from "motion/react";
 import type * as React from "react";
+import { Link, type LinkProps } from "react-router";
 import { cn } from "@/lib/utils";
 import { buttonVariants } from "./ui/button";
 
@@ -173,9 +174,10 @@ function BarBaseline() {
  */
 function Banner({
 	className,
+	containerClassName,
 	children,
 	...props
-}: React.ComponentProps<"section">) {
+}: React.ComponentProps<"section"> & { containerClassName?: string }) {
 	return (
 		<section
 			data-slot="banner"
@@ -183,11 +185,15 @@ function Banner({
 			{...props}
 		>
 			<motion.div
+				data-slot="banner-container"
 				initial="hidden"
 				whileInView="shown"
 				viewport={{ once: true, amount: 0.25 }}
 				variants={stage}
-				className="mx-auto w-full max-w-360 px-6 py-12 lg:px-20 lg:py-20"
+				className={cn(
+					"mx-auto w-full max-w-360 px-6 py-12 lg:px-20 lg:py-20",
+					containerClassName,
+				)}
 			>
 				<motion.div
 					variants={shell}
@@ -259,10 +265,10 @@ function BannerDescription({ className, ...props }: HTMLMotionProps<"p">) {
 	);
 }
 
-function BannerAction({ className, ...props }: React.ComponentProps<"a">) {
+function BannerAction({ className, ...props }: LinkProps) {
 	return (
 		<motion.div variants={rise} className="mt-6">
-			<a
+			<Link
 				data-slot="banner-action"
 				// `ghost` already lands on the light-on-dark treatment the design
 				// wants; it only needs the resting white fill and Figma's 16px inset.

@@ -23,70 +23,78 @@ export function InfiniteSlider({
 	className,
 }: InfiniteSliderProps) {
 	const [currentSpeed, setCurrentSpeed] = useState(speed);
-	const [ref, { width, height }] = useMeasure();
+	const [viewportRef, viewport] = useMeasure<HTMLDivElement>();
+	const [sequenceRef, sequence] = useMeasure<HTMLDivElement>();
 	const translation = useMotionValue(0);
-	const [isTransitioning, setIsTransitioning] = useState(false);
-	const [key, setKey] = useState(0);
+	const viewportSize =
+		direction === "horizontal" ? viewport.width : viewport.height;
+	const sequenceSize =
+		direction === "horizontal" ? sequence.width : sequence.height;
+	const loopDistance = sequenceSize + gap;
+	const copyCount = loopDistance
+		? Math.max(2, Math.ceil((viewportSize + gap) / loopDistance) + 1)
+		: 2;
 
-	// biome-ignore lint/correctness/useExhaustiveDependencies: key forces the loop to restart after a hover transition, it isn't read in the body
 	useEffect(() => {
-		let controls: ReturnType<typeof animate> | undefined;
-		const size = direction === "horizontal" ? width : height;
-		const contentSize = size + gap;
-		const from = reverse ? -contentSize / 2 : 0;
-		const to = reverse ? 0 : -contentSize / 2;
-		const duration = contentSize / currentSpeed;
+		if (loopDistance <= 0 || currentSpeed <= 0) {
+			return;
+		}
 
-		if (isTransitioning) {
-			controls = animate(translation, [translation.get(), to], {
+		let cancelled = false;
+		let approachControls: ReturnType<typeof animate> | undefined;
+		let loopControls: ReturnType<typeof animate> | undefined;
+		const loopStart = reverse ? -loopDistance : 0;
+		const loopEnd = reverse ? 0 : -loopDistance;
+		const rawTranslation = translation.get();
+		const wrapped =
+			((rawTranslation % loopDistance) + loopDistance) % loopDistance;
+		const currentTranslation =
+			wrapped === 0 ? loopStart : wrapped - loopDistance;
+		const remainingDistance = Math.abs(loopEnd - currentTranslation);
+
+		const startLoop = () => {
+			if (cancelled) {
+				return;
+			}
+
+			translation.set(loopStart);
+			loopControls = animate(translation, [loopStart, loopEnd], {
+				duration: loopDistance / currentSpeed,
 				ease: "linear",
-				duration: duration * Math.abs((translation.get() - to) / contentSize),
-				onComplete: () => {
-					setIsTransitioning(false);
-					setKey((prevKey) => prevKey + 1);
-				},
-			});
-		} else {
-			controls = animate(translation, [from, to], {
-				ease: "linear",
-				duration,
 				repeat: Number.POSITIVE_INFINITY,
-				repeatType: "loop",
 				repeatDelay: 0,
-				onRepeat: () => {
-					translation.set(from);
-				},
+				repeatType: "loop",
+			});
+		};
+
+		translation.set(currentTranslation);
+
+		if (remainingDistance < 0.5) {
+			startLoop();
+		} else {
+			approachControls = animate(translation, [currentTranslation, loopEnd], {
+				duration: remainingDistance / currentSpeed,
+				ease: "linear",
+				onComplete: startLoop,
 			});
 		}
 
-		return () => controls?.stop();
-	}, [
-		key,
-		translation,
-		currentSpeed,
-		width,
-		height,
-		gap,
-		isTransitioning,
-		direction,
-		reverse,
-	]);
+		return () => {
+			cancelled = true;
+			approachControls?.stop();
+			loopControls?.stop();
+		};
+	}, [currentSpeed, loopDistance, reverse, translation]);
 
 	const hoverProps = speedOnHover
 		? {
-				onHoverStart: () => {
-					setIsTransitioning(true);
-					setCurrentSpeed(speedOnHover);
-				},
-				onHoverEnd: () => {
-					setIsTransitioning(true);
-					setCurrentSpeed(speed);
-				},
+				onHoverStart: () => setCurrentSpeed(speedOnHover),
+				onHoverEnd: () => setCurrentSpeed(speed),
 			}
 		: {};
 
 	return (
-		<div className={cn("overflow-hidden", className)}>
+		<div ref={viewportRef} className={cn("overflow-hidden", className)}>
 			<motion.div
 				className="flex w-max"
 				style={{
@@ -96,11 +104,22 @@ export function InfiniteSlider({
 					gap: `${gap}px`,
 					flexDirection: direction === "horizontal" ? "row" : "column",
 				}}
-				ref={ref}
 				{...hoverProps}
 			>
-				{children}
-				{children}
+				{Array.from({ length: copyCount }, (_, copyIndex) => (
+					<div
+						key={copyIndex}
+						ref={copyIndex === 0 ? sequenceRef : undefined}
+						aria-hidden={copyIndex === 0 ? undefined : true}
+						className="flex w-max shrink-0"
+						style={{
+							gap: `${gap}px`,
+							flexDirection: direction === "horizontal" ? "row" : "column",
+						}}
+					>
+						{children}
+					</div>
+				))}
 			</motion.div>
 		</div>
 	);
