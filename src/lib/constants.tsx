@@ -164,83 +164,77 @@ export const LOGOS: Logo[] = [
 	{ slug: "q247", src: q247Logo, alt: "Qc247" },
 ];
 
-export type Project = {
+export type ProjectPage = {
 	slug: string;
-	/** Page name, as it reads under the thumbnail. */
+	/** Reads under the thumbnail. The row already names the client, so this is
+	 *  only the page's role — "Shop", not "Home of Korean Beauty Shop". */
 	name: string;
-	/** Groups the pages that belong to the same engagement. */
-	client: string;
 	thumbnail: string;
-	/** Live site the client runs in production. */
+};
+
+export type ProjectGroup = {
+	slug: string;
+	client: string;
+	/** Kind of site, sits under the client name in place of a case study. */
+	type: string;
+	/** The client's live site. One URL per engagement, not per page. */
 	href: string;
+	pages: ProjectPage[];
 };
 
 // These aren't case studies — there is no write-up behind them yet. All we have
-// per project is a thumbnail, a name and the client's live URL, so the section
-// treats each one as a link out rather than a link deeper into the site.
+// per engagement is a set of thumbnails, the client, the kind of site and the
+// live URL, so the section links out rather than deeper into the site.
 //
 // TODO: `href` is a placeholder on every row until the production links land.
 //
-// Names were read off the thumbnails in the browser rather than taken from the
-// design's caption order — `hok-2`/`hok-3` and `dera-1`/`dera-2` are the
-// reverse of what that order implies. Each client leads with its landing page,
-// which is also what the spotlight variation opens on.
-export const PROJECTS: Project[] = [
+// Page order was read off the thumbnails in the browser rather than taken from
+// the design's caption order — `hok-2`/`hok-3` and `dera-1`/`dera-2` are the
+// reverse of what that order implies. Every client leads with its landing page.
+export const PROJECT_GROUPS: ProjectGroup[] = [
 	{
-		slug: "hok-landing",
-		name: "House of Korean Landing Page",
-		client: "House of Korean",
-		thumbnail: projectHok3,
+		slug: "home-of-korean-beauty",
+		client: "Home of Korean Beauty",
+		type: "E-commerce website",
 		href: "#",
+		pages: [
+			{
+				slug: "hok-landing",
+				name: "Landing Page",
+				thumbnail: projectHok3,
+			},
+			{ slug: "hok-shop", name: "Shop", thumbnail: projectHok1 },
+			{ slug: "hok-about", name: "About Us", thumbnail: projectHok2 },
+		],
 	},
 	{
-		slug: "hok-shop",
-		name: "House of Korean Shop",
-		client: "House of Korean",
-		thumbnail: projectHok1,
-		href: "#",
-	},
-	{
-		slug: "hok-about",
-		name: "House of Korean About Us",
-		client: "House of Korean",
-		thumbnail: projectHok2,
-		href: "#",
-	},
-	{
-		slug: "dera-landing",
-		name: "Dera Landing Page",
+		slug: "dera",
 		client: "Dera",
-		thumbnail: projectDera2,
+		type: "E-commerce website",
 		href: "#",
+		pages: [
+			{ slug: "dera-landing", name: "Landing Page", thumbnail: projectDera2 },
+			{
+				slug: "dera-product",
+				name: "Product Details",
+				thumbnail: projectDera1,
+			},
+			{
+				slug: "dera-styling-gel",
+				name: "Styling Gel",
+				thumbnail: projectDera3,
+			},
+		],
 	},
 	{
-		slug: "dera-product",
-		name: "Dera Product Details",
-		client: "Dera",
-		thumbnail: projectDera1,
-		href: "#",
-	},
-	{
-		slug: "dera-styling-gel",
-		name: "Dera Styling Gel",
-		client: "Dera",
-		thumbnail: projectDera3,
-		href: "#",
-	},
-	{
-		slug: "clarify-landing",
-		name: "Clarify Landing Page",
+		slug: "clarify-house",
 		client: "Clarify House",
-		thumbnail: projectCh1,
+		type: "Agency website",
 		href: "#",
-	},
-	{
-		slug: "clarify-services",
-		name: "Clarify Services",
-		client: "Clarify House",
-		thumbnail: projectCh2,
-		href: "#",
+		pages: [
+			{ slug: "clarify-landing", name: "Landing Page", thumbnail: projectCh1 },
+			{ slug: "clarify-services", name: "Services", thumbnail: projectCh2 },
+		],
 	},
 ];
 
