@@ -76,6 +76,151 @@ export const SERVICES: Service[] = [
 	},
 ];
 
+export type BootcampModule = {
+	slug: string;
+	title: string;
+	items: string[];
+};
+
+export type BootcampOffering = {
+	slug: string;
+	name: string;
+	subtitle: string;
+	price: string;
+	cardStyle: "navy" | "midnight";
+	ctaLabel: string;
+	ctaHref: string;
+	availability: string;
+	details: Array<{
+		label: string;
+		value: string;
+	}>;
+};
+
+export const BOOTCAMP_OFFERINGS_COPY = {
+	eyebrow: "Current offerings",
+	title: "Choose how you want to learn",
+	description:
+		"Compare both paths without reading the same curriculum twice. Pick the class structure that fits how you work best.",
+};
+
+export const BOOTCAMP_CURRICULUM: BootcampModule[] = [
+	{
+		slug: "ux-design",
+		title: "UX Design",
+		items: [
+			"Build the UX skills that clients and employers pay for.",
+			"Understand why UX matters and apply design thinking to solve real problems.",
+			"Research users properly, then turn findings into better design decisions.",
+			"Map full user journeys, from empathy maps to service blueprints.",
+			"Build and maintain design systems that scale.",
+			"Ship more than 40 web and mobile screens and build a portfolio that proves what you can do.",
+			"Test and prototype ideas before they go live.",
+			"Graduate with a polished, job-ready portfolio.",
+			"Practise real interview scenarios so you can explain your work clearly.",
+			"Earn a Certificate of Completion that validates your skills.",
+		],
+	},
+	{
+		slug: "ai-for-designers",
+		title: "AI for Designers",
+		items: [
+			"Use ChatGPT, Claude, and Figma Make to move from a blank canvas to polished screens faster.",
+			"Write prompts for UI layouts, user personas, UX copy, and microcopy without losing time to rewrites.",
+			"Use AI to synthesize interviews, spot patterns, and turn raw feedback into design decisions.",
+			"Know when to follow AI suggestions and when to push back, so you stay in control of the creative process.",
+			"Understand how AI is changing client expectations and position yourself ahead of the curve.",
+		],
+	},
+];
+
+export const BOOTCAMP_OFFERINGS: BootcampOffering[] = [
+	{
+		slug: "advanced-class",
+		name: "Advanced Class",
+		subtitle: "UX Design & AI Program",
+		price: "₦150,000",
+		cardStyle: "navy",
+		ctaLabel: "Claim Your Spot Now",
+		ctaHref: "/#book-a-call",
+		availability: "Limited seats available each cohort",
+		details: [
+			{ label: "Duration", value: "9 Weeks" },
+			{ label: "Schedule", value: "2x/Week" },
+			{ label: "Format", value: "Live Virtual Training" },
+			{
+				label: "Payment Plan",
+				value: "70% on Enrollment\n30% after One Month",
+			},
+		],
+	},
+	{
+		slug: "mentorship-class",
+		name: "Mentorship Class",
+		subtitle: "UX Design & AI Program",
+		price: "₦250,000",
+		cardStyle: "midnight",
+		ctaLabel: "Claim Your Spot Now",
+		ctaHref: "/#book-a-call",
+		availability: "Limited seats available each cohort",
+		details: [
+			{ label: "Duration", value: "9 Weeks" },
+			{ label: "Schedule", value: "9 Weeks" },
+			{ label: "Format", value: "One on One Session" },
+			{
+				label: "Payment Plan",
+				value: "70% on Enrollment\n30% after One Month",
+			},
+		],
+	},
+];
+
+export type BootcampTool = {
+	slug: string;
+	name: string;
+	src: string;
+};
+
+export const BOOTCAMP_TOOLS_COPY = {
+	eyebrow: "The Tools",
+	title: "Master the tools used by modern designers",
+	description:
+		"Work with the tools used by professional designers to create real projects, build your portfolio, and prepare for the industry.",
+};
+
+export const BOOTCAMP_TOOLS: BootcampTool[] = [
+	{
+		slug: "claude",
+		name: "Claude",
+		src: "/icons/claude-ai-icon.svg",
+	},
+	{
+		slug: "google-forms",
+		name: "Google Forms",
+		src: "/icons/google-forms-2026.svg",
+	},
+	{
+		slug: "openai",
+		name: "OpenAI",
+		src: "/icons/openai.svg",
+	},
+	{
+		slug: "miro",
+		name: "Miro",
+		src: "/icons/miro.svg",
+	},
+	{
+		slug: "figma",
+		name: "Figma",
+		src: "/icons/figma.svg",
+	},
+	{
+		slug: "google-meet",
+		name: "Google Meet",
+		src: "/icons/google-meet-2026.svg",
+	},
+];
+
 export type Testimonial = {
 	slug: string;
 	logo: string;
@@ -173,7 +318,7 @@ export const PROJECT_GROUPS: ProjectGroup[] = [
 		slug: "home-of-korean-beauty",
 		client: "Home of Korean Beauty",
 		type: "E-commerce website",
-		href: "#",
+		href: "https://www.homeofkoreanbeauty.com/",
 		pages: [
 			{
 				slug: "hok-landing",
@@ -188,7 +333,7 @@ export const PROJECT_GROUPS: ProjectGroup[] = [
 		slug: "dera",
 		client: "Dera",
 		type: "E-commerce website",
-		href: "#",
+		href: "https://deranig.com/",
 		pages: [
 			{ slug: "dera-landing", name: "Landing Page", thumbnail: projectDera2 },
 			{
@@ -207,7 +352,7 @@ export const PROJECT_GROUPS: ProjectGroup[] = [
 		slug: "clarify-house",
 		client: "Clarify House",
 		type: "Agency website",
-		href: "#",
+		href: "https://www.theclarifyhouse.com/",
 		pages: [
 			{ slug: "clarify-landing", name: "Landing Page", thumbnail: projectCh1 },
 			{ slug: "clarify-services", name: "Services", thumbnail: projectCh2 },
@@ -287,7 +432,7 @@ export const SOCIAL_LINKS: SocialLink[] = [
 	{
 		platform: "whatsapp",
 		label: "WhatsApp",
-		href: "https://www.whatsapp.com/",
+		href: "https://wa.me/2347079443937",
 	},
 	{
 		platform: "linkedin",

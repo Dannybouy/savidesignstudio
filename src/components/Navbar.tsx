@@ -1,14 +1,15 @@
 import { Menu, X } from "lucide-react";
 import { AnimatePresence, motion, type Variants } from "motion/react";
 import { useState } from "react";
+import { Link } from "react-router";
 import { buttonVariants } from "./ui/button";
 
 const NAV_LINKS = [
-	{ label: "Home", href: "#home" },
-	{ label: "Services", href: "#services" },
-	{ label: "Projects", href: "#projects" },
-	{ label: "About", href: "#about" },
-	{ label: "Contact", href: "#contact" },
+	{ label: "Home", to: "/" },
+	{ label: "Services", to: "/#services" },
+	{ label: "Projects", to: "/#projects" },
+	{ label: "About", to: "/#about" },
+	{ label: "Contact", to: "/#book-a-call" },
 ];
 
 const listVariants: Variants = {
@@ -38,8 +39,8 @@ export default function Navbar() {
 		<header className="sticky top-0 z-50 h-(--nav-h) border-hairline border-b bg-surface-page/80 backdrop-blur-md">
 			<div className="mx-auto flex h-full max-w-360 items-center gap-4 px-6 lg:gap-0 lg:px-20">
 				<div className="flex h-8 flex-1 items-center justify-between lg:h-15 lg:px-4">
-					<a
-						href="#home"
+					<Link
+						to="/"
 						aria-label="Savi Design Studio — home"
 						className="shrink-0"
 					>
@@ -48,29 +49,29 @@ export default function Navbar() {
 							alt="Savi Design Studio"
 							className="h-7 w-16 lg:h-8 lg:w-19"
 						/>
-					</a>
+					</Link>
 
 					<nav aria-label="Main" className="hidden lg:block">
 						<ul className="flex items-center gap-4">
 							{NAV_LINKS.map((link) => (
-								<li key={link.href}>
-									<a
-										href={link.href}
+								<li key={link.to}>
+									<Link
+										to={link.to}
 										className="flex h-8 items-center rounded-lg px-4 text-heading text-paragraph transition-colors hover:text-surface-action-secondary"
 									>
 										{link.label}
-									</a>
+									</Link>
 								</li>
 							))}
 						</ul>
 					</nav>
 
-					<a
-						href="#book-a-call"
+					<Link
+						to="/#book-a-call"
 						className={buttonVariants({ variant: "solid" })}
 					>
 						Book a Call
-					</a>
+					</Link>
 				</div>
 
 				<button
@@ -120,14 +121,14 @@ export default function Navbar() {
 							className="flex flex-col gap-1 px-6 py-4"
 						>
 							{NAV_LINKS.map((link) => (
-								<motion.li key={link.href} variants={linkVariants}>
-									<a
-										href={link.href}
+								<motion.li key={link.to} variants={linkVariants}>
+									<Link
+										to={link.to}
 										onClick={() => setIsMenuOpen(false)}
 										className="flex h-10 items-center rounded-lg px-4 text-heading text-paragraph transition-colors hover:text-surface-action-secondary"
 									>
 										{link.label}
-									</a>
+									</Link>
 								</motion.li>
 							))}
 						</motion.ul>
