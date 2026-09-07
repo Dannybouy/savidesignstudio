@@ -4,6 +4,14 @@ import deraLogo from "@/assets/dera.svg";
 import hokLogo from "@/assets/hok.png";
 import landsafeLogo from "@/assets/landsafe.svg";
 import landsafeCeo from "@/assets/landsafe-ceo.png";
+import projectCh1 from "@/assets/project-ch-1.avif";
+import projectCh2 from "@/assets/project-ch-2.avif";
+import projectDera1 from "@/assets/project-dera-1.avif";
+import projectDera2 from "@/assets/project-dera-2.avif";
+import projectDera3 from "@/assets/project-dera-3.avif";
+import projectHok1 from "@/assets/project-hok-1.avif";
+import projectHok2 from "@/assets/project-hok-2.avif";
+import projectHok3 from "@/assets/project-hok-3.avif";
 import q247Logo from "@/assets/q247.jpg";
 import secsystemsLogo from "@/assets/secsystems.svg";
 
@@ -154,6 +162,86 @@ export const LOGOS: Logo[] = [
 	{ slug: "secsystems", src: secsystemsLogo, alt: "Secsystems" },
 	{ slug: "dera", src: deraLogo, alt: "dera" },
 	{ slug: "q247", src: q247Logo, alt: "Qc247" },
+];
+
+export type Project = {
+	slug: string;
+	/** Page name, as it reads under the thumbnail. */
+	name: string;
+	/** Groups the pages that belong to the same engagement. */
+	client: string;
+	thumbnail: string;
+	/** Live site the client runs in production. */
+	href: string;
+};
+
+// These aren't case studies — there is no write-up behind them yet. All we have
+// per project is a thumbnail, a name and the client's live URL, so the section
+// treats each one as a link out rather than a link deeper into the site.
+//
+// TODO: `href` is a placeholder on every row until the production links land.
+//
+// Names were read off the thumbnails in the browser rather than taken from the
+// design's caption order — `hok-2`/`hok-3` and `dera-1`/`dera-2` are the
+// reverse of what that order implies. Each client leads with its landing page,
+// which is also what the spotlight variation opens on.
+export const PROJECTS: Project[] = [
+	{
+		slug: "hok-landing",
+		name: "House of Korean Landing Page",
+		client: "House of Korean",
+		thumbnail: projectHok3,
+		href: "#",
+	},
+	{
+		slug: "hok-shop",
+		name: "House of Korean Shop",
+		client: "House of Korean",
+		thumbnail: projectHok1,
+		href: "#",
+	},
+	{
+		slug: "hok-about",
+		name: "House of Korean About Us",
+		client: "House of Korean",
+		thumbnail: projectHok2,
+		href: "#",
+	},
+	{
+		slug: "dera-landing",
+		name: "Dera Landing Page",
+		client: "Dera",
+		thumbnail: projectDera2,
+		href: "#",
+	},
+	{
+		slug: "dera-product",
+		name: "Dera Product Details",
+		client: "Dera",
+		thumbnail: projectDera1,
+		href: "#",
+	},
+	{
+		slug: "dera-styling-gel",
+		name: "Dera Styling Gel",
+		client: "Dera",
+		thumbnail: projectDera3,
+		href: "#",
+	},
+	{
+		slug: "clarify-landing",
+		name: "Clarify Landing Page",
+		client: "Clarify House",
+		thumbnail: projectCh1,
+		href: "#",
+	},
+	{
+		slug: "clarify-services",
+		name: "Clarify Services",
+		client: "Clarify House",
+		thumbnail: projectCh2,
+		href: "#",
+	},
 ];
 
 export type Faq = {

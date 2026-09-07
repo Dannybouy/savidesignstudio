@@ -10,6 +10,7 @@ import FAQ from "./components/FAQ";
 import Hero from "./components/Hero";
 import HowWeWork from "./components/HowWeWork";
 import Navbar from "./components/Navbar";
+import Projects from "./components/Projects";
 import Services from "./components/Services";
 import Testimonials from "./components/Testimonials";
 
@@ -52,6 +53,7 @@ export default function App() {
 					</Banner>
 					<Services />
 					<HowWeWork />
+					<Projects />
 					<Testimonials />
 					<FAQ />
 				</main>
