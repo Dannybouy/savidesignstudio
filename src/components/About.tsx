@@ -165,7 +165,7 @@ export default function About() {
 										10+ yrs
 									</p>
 									<p className="text-lg text-body-secondary">
-									Serving and helping business build standout brands solutions.
+									Serving and helping businesses build standout brands solutions.
 									</p>
 								</div>
 							</Card>
