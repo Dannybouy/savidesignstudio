@@ -12,7 +12,7 @@ import projectDera3 from "@/assets/project-dera-3.avif";
 import projectHok1 from "@/assets/project-hok-1.avif";
 import projectHok2 from "@/assets/project-hok-2.avif";
 import projectHok3 from "@/assets/project-hok-3.avif";
-import q247Logo from "@/assets/q247.jpg";
+import q247Logo from "@/assets/qc247.png";
 import secsystemsLogo from "@/assets/secsystems.svg";
 
 export type Service = {

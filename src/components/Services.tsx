@@ -271,7 +271,7 @@ export default function Services() {
 														className="flex items-center gap-4.25"
 													>
 														<img
-															src="/icons/sparkle.svg"
+															src="/icons/sparkle-purple.svg"
 															alt=""
 															className="size-6 shrink-0"
 														/>

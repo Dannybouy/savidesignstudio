@@ -125,10 +125,10 @@ export default function About() {
 							</p>
 							<div className="flex flex-col gap-1">
 								<p className="text-[3.5rem] font-heading text-white leading-16 tracking-[-2px]">
-									120+
+									20+
 								</p>
 								<p className="text-lg leading-6 tracking-[-0.5px] text-on-action/90">
-									Collaborating with leading AI and cloud technology providers.
+									Collaborating with leading companies and businesses.
 								</p>
 							</div>
 						</Card>
@@ -146,8 +146,7 @@ export default function About() {
 									98%
 								</p>
 								<blockquote className="text-lg text-on-action">
-									&ldquo;Their automation strategy completely reshaped how we
-									work. It&rsquo;s efficient, intelligent, and seamless.&rdquo;
+									&ldquo;What stood out most was the team&rsquo;s professionalism, clear communication, reliability, and attention to detail.&rdquo;
 								</blockquote>
 							</div>
 						</Card>
@@ -163,10 +162,10 @@ export default function About() {
 								<p className="text-lg text-body-secondary">In The Industry</p>
 								<div className="flex flex-col gap-1">
 									<p className="text-[3.5rem] font-heading text-[#262626] leading-16 tracking-[-2px]">
-										10 yrs
+										10+ yrs
 									</p>
 									<p className="text-lg text-body-secondary">
-										Analyzed monthly to power smarter business strategies.
+									Serving and helping business build standout brands solutions.
 									</p>
 								</div>
 							</Card>
@@ -175,11 +174,11 @@ export default function About() {
 								className={`${CARD_SHELL} relative isolate h-auto min-h-0 flex-row items-center border-0 text-on-action`}
 							>
 								<CardArtwork src={cardImageTwo} />
-								<p className="text-lg leading-6 tracking-[-0.5px] text-on-action/90">
+								<p className="text-lg leading-6 tracking-[-0.5px] text-[#d4d4d4]">
 									Global Clients
 								</p>
 								<p className="text-[3.5rem] font-heading text-white leading-16 tracking-[-2px]">
-									20+
+									8+
 								</p>
 							</Card>
 						</div>
