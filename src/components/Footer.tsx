@@ -52,10 +52,10 @@ export default function Footer() {
 		>
 			<img
 				src={footerBackground}
-				alt=""
+				alt="footer background"
 				loading="lazy"
 				decoding="async"
-				className="absolute inset-0 -z-20 size-full object-cover object-center"
+				className="absolute inset-0 -z-20 size-full object-cover object-bottom"
 			/>
 			<div
 				aria-hidden
@@ -73,14 +73,19 @@ export default function Footer() {
 
 					<motion.p
 						variants={rise}
-						className="mt-6 max-w-160 text-paragraph text-white/85 lg:mt-8 lg:text-paragraph-lg"
+						className="mt-6 max-w-lg text-paragraph text-white/85 lg:mt-8 lg:text-paragraph-lg"
 					>
 						{BODY}
 					</motion.p>
 
+					<div className="flex items-center gap-2">
+
+					
 					<motion.a
 						variants={rise}
-						href="#book-a-call"
+						href="http://calendly.com/savidesignstudio2"
+						target="_blank"
+						rel="noopener noreferrer"
 						className={buttonVariants({
 							size: "cta",
 							variant: "outline",
@@ -100,6 +105,22 @@ export default function Footer() {
 							/>
 						</span>
 					</motion.a>
+
+					<motion.a
+						variants={rise}
+						href="mailto:Savidesignstudio2@gmail.com"
+						target="_blank"
+						rel="noopener noreferrer"
+						className={buttonVariants({
+							size: "default",
+							variant: "outline",
+							className:
+								"mt-8 border border-white bg-transparent text-white hover:bg-white lg:mt-10",
+						})}
+					>
+						Send us a mail
+					</motion.a>
+					</div>
 				</div>
 
 				<motion.div

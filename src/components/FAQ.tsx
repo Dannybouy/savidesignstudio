@@ -155,7 +155,9 @@ export default function FAQ() {
 
 						<motion.a
 							variants={rise}
-							href="#book-a-call"
+							href="http://calendly.com/savidesignstudio2"
+							target="_blank"
+							rel="noopener noreferrer"
 							className={buttonVariants({ size: "cta", variant: "cta" })}
 						>
 							Grab A Free Call
@@ -165,7 +167,7 @@ export default function FAQ() {
 							>
 								<img
 									src="/icons/arrow-up-right.svg"
-									alt=""
+									alt="arrow up right"
 									className="size-5 transition-transform duration-200 ease-out group-hover/button:translate-x-px group-hover/button:-translate-y-px"
 								/>
 							</span>

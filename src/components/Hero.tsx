@@ -1,7 +1,8 @@
 import { motion, type Variants } from "motion/react";
 import griddedPattern from "../assets/gridded-pattern.avif";
-import heroImage from "../assets/hero-image.avif";
+import { PROJECT_GROUPS } from "../lib/constants";
 import { buttonVariants } from "./ui/button";
+import { InfiniteSlider } from "./ui/infinite-slider";
 
 const HEADLINE = "Designing experiences and brands people love and remember";
 
@@ -9,6 +10,15 @@ const EYEBROW = "Build Your Online Identity Today";
 
 const BODY =
 	"Our team delivers high quality branding, design & development that helps shape the future of your business.";
+
+const PROJECT_REEL = PROJECT_GROUPS.flatMap((project) =>
+	project.pages.map((page) => ({
+		slug: page.slug,
+		client: project.client,
+		name: page.name,
+		src: page.thumbnail,
+	})),
+);
 
 const stage: Variants = {
 	hidden: {},
@@ -70,7 +80,7 @@ function HatchBand() {
 			<motion.img
 				variants={fade}
 				src={griddedPattern}
-				alt=""
+				alt="grid pattern"
 				className="size-full object-none object-center"
 			/>
 		</div>
@@ -99,7 +109,11 @@ export default function Hero() {
 						variants={rise}
 						className="flex items-center gap-2 rounded-sm bg-surface-default px-2 py-1 text-heading text-paragraph-sm"
 					>
-						<img src="/icons/sparkle.svg" alt="" className="size-4 shrink-0" />
+						<img
+							src="/icons/sparkle.svg"
+							alt="sparkle"
+							className="size-4 shrink-0"
+						/>
 						{EYEBROW}
 					</motion.p>
 
@@ -133,7 +147,9 @@ export default function Hero() {
 						className="flex items-center gap-4 lg:gap-3"
 					>
 						<a
-							href="#book-a-call"
+							href="http://calendly.com/savidesignstudio2"
+							target="_blank"
+							rel="noopener noreferrer"
 							className={buttonVariants({ size: "cta", variant: "cta" })}
 						>
 							Grab A Free Call
@@ -143,14 +159,16 @@ export default function Hero() {
 							>
 								<img
 									src="/icons/arrow-up-right.svg"
-									alt=""
+									alt="arrow up right"
 									className="size-5 transition-transform duration-200 ease-out group-hover/button:translate-x-px group-hover/button:-translate-y-px"
 								/>
 							</span>
 						</a>
 
 						<a
-							href="#contact"
+							href="https://wa.me/2347079443937"
+							target="_blank"
+							rel="noopener noreferrer"
 							className={buttonVariants({ variant: "outline" })}
 						>
 							Chat with us
@@ -160,14 +178,25 @@ export default function Hero() {
 			</div>
 
 			<HatchBand />
-			<div className="w-full px-2 py-2 lg:py-4">
-				<motion.img
-					variants={unveil}
-					src={heroImage}
-					alt="Screens from recent Savi Design Studio projects"
-					fetchPriority="high"
-					className="h-auto w-full"
-				/>
+			<div className="w-full bg-surface-default py-2 lg:py-4">
+				<motion.div variants={unveil}>
+					<InfiniteSlider gap={16} speed={24} speedOnHover={8}>
+						{PROJECT_REEL.map((project, index) => (
+							<figure
+								key={project.slug}
+								className="w-[82vw] shrink-0 overflow-hidden bg-surface-page p-2 sm:w-[68vw] lg:w-[43vw] lg:p-4"
+							>
+								<img
+									src={project.src}
+									alt={`${project.client} ${project.name} website design`}
+									loading={index < 2 ? "eager" : "lazy"}
+									fetchPriority={index < 2 ? "high" : "auto"}
+									className="aspect-[45/32] size-full select-none object-cover object-top"
+								/>
+							</figure>
+						))}
+					</InfiniteSlider>
+				</motion.div>
 			</div>
 
 			<HatchBand />
