@@ -2,7 +2,7 @@ import { type HTMLMotionProps, motion, type Variants } from "motion/react";
 import type * as React from "react";
 import { Link, type LinkProps } from "react-router";
 import { cn } from "@/lib/utils";
-import { buttonVariants } from "./ui/button";
+import { Button, buttonVariants } from "./ui/button";
 
 // Bar-chart palette, shortest bar to tallest. Deliberately local: these shades
 // belong to the banner artwork, not to the global theme.
@@ -283,4 +283,25 @@ function BannerAction({ className, ...props }: LinkProps) {
 	);
 }
 
-export { Banner, BannerAction, BannerDescription, BannerTitle };
+function BannerActionButton({
+	className,
+	...props
+}: React.ComponentProps<typeof Button>) {
+	return (
+		<motion.div variants={rise} className="mt-6">
+			<Button
+				variant="ghost"
+				className={cn("bg-surface-page px-4", className)}
+				{...props}
+			/>
+		</motion.div>
+	);
+}
+
+export {
+	Banner,
+	BannerAction,
+	BannerActionButton,
+	BannerDescription,
+	BannerTitle,
+};

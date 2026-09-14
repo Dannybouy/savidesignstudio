@@ -1,6 +1,5 @@
 import { motion, type Variants } from "motion/react";
-import { Link } from "react-router";
-import { buttonVariants } from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 
 const HEADLINE = "Learn to think and design like a PRO";
 const BODY =
@@ -69,7 +68,7 @@ function DesktopColorBand() {
 	);
 }
 
-export default function Hero() {
+export default function Hero({ onRegister }: { onRegister: () => void }) {
 	return (
 		<motion.section
 			initial="hidden"
@@ -102,13 +101,12 @@ export default function Hero() {
 					</motion.p>
 
 					<motion.div variants={rise} className="mt-4 lg:mt-6">
-						<Link
-							to="/#book-a-call"
-							className={buttonVariants({
-								variant: "cta",
-								size: "cta",
-								className: "lg:px-4",
-							})}
+						<Button
+							type="button"
+							variant="cta"
+							size="cta"
+							onClick={onRegister}
+							className="lg:px-4"
 						>
 							Register for the Free Bootcamp
 							<span
@@ -121,7 +119,7 @@ export default function Hero() {
 									className="size-5 transition-transform duration-200 ease-out group-hover/button:translate-x-px group-hover/button:-translate-y-px"
 								/>
 							</span>
-						</Link>
+						</Button>
 					</motion.div>
 				</div>
 			</div>
