@@ -37,6 +37,8 @@
 	--color-body-primary: hsl(0 0% 25%);
 	--color-body-secondary: hsl(0 0% 45%);
 	--color-on-action: hsl(0 0% 100%);
+	--color-success: hsl(145 63% 36%);
+	--color-on-success: hsl(0 0% 100%);
 
 	/* Borders */
 	--color-border-default: hsl(0 0% 83%);
@@ -101,6 +103,7 @@
 	:root {
 		/* Sticky nav height, border-box so the bottom hairline is included. */
 		--nav-h: 4rem;
+		--ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
 	}
 
 	@media (width >= 64rem) {
@@ -126,6 +129,35 @@
 	}
 	html {
 		@apply font-sans;
+	}
+}
+
+@keyframes field-shake {
+	0%,
+	100% {
+		transform: translate3d(0, 0, 0);
+	}
+	18% {
+		transform: translate3d(-5px, 0, 0);
+	}
+	36% {
+		transform: translate3d(5px, 0, 0);
+	}
+	54% {
+		transform: translate3d(-3px, 0, 0);
+	}
+	72% {
+		transform: translate3d(3px, 0, 0);
+	}
+}
+
+.field-shake {
+	animation: field-shake 300ms var(--ease-in-out);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.field-shake {
+		animation: none;
 	}
 }
 
