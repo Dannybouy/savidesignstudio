@@ -134,17 +134,31 @@ const CountrySelect = ({
 	options: countryList,
 	onChange,
 }: CountrySelectProps) => {
-	const { variant, popupClassName, triggerClassName, readOnly } =
-		useContext(PhoneInputContext);
+	const {
+		variant,
+		popupClassName,
+		scrollAreaClassName,
+		triggerClassName,
+		readOnly,
+	} = useContext(PhoneInputContext);
 	const [searchValue, setSearchValue] = useState("");
+	const countries = useMemo(
+		() =>
+			countryList.toSorted((first, second) => {
+				if (first.value === "NG") return -1;
+				if (second.value === "NG") return 1;
+				return first.label.localeCompare(second.label);
+			}),
+		[countryList],
+	);
 
 	const filteredCountries = useMemo(() => {
-		if (!searchValue) return countryList;
+		if (!searchValue) return countries;
 
-		return countryList.filter(({ label }) =>
+		return countries.filter(({ label }) =>
 			label.toLowerCase().includes(searchValue.toLowerCase()),
 		);
-	}, [countryList, searchValue]);
+	}, [countries, searchValue]);
 	const selectedCountryName =
 		countryList.find((country) => country.value === selectedCountry)?.label ??
 		selectedCountry;
@@ -202,7 +216,12 @@ const CountrySelect = ({
 				<ComboboxList>
 					<div className="relative flex max-h-full">
 						<div className="flex max-h-[min(var(--available-height),24rem)] w-full scroll-pt-2 scroll-pb-2 flex-col overscroll-contain">
-							<ScrollArea className="size-full min-h-0 **:data-[slot=scroll-area-scrollbar]:m-0 **:data-[slot=scroll-area-viewport]:h-full **:data-[slot=scroll-area-viewport]:overscroll-contain">
+							<ScrollArea
+								className={cn(
+									"size-full min-h-0 **:data-[slot=scroll-area-scrollbar]:m-0 **:data-[slot=scroll-area-viewport]:h-full **:data-[slot=scroll-area-viewport]:overscroll-contain",
+									scrollAreaClassName,
+								)}
+							>
 								{filteredCountries.map((item: CountryEntry) =>
 									item.value ? (
 										<ComboboxItem

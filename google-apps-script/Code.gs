@@ -25,8 +25,19 @@ const LEARNING_TIMES = [
 
 const YES_NO_OPTIONS = ["Yes", "No"];
 const EMAIL_PROVIDERS = ["gmail.com", "yahoo.com", "outlook.com", "hotmail.com"];
-const DUPLICATE_REGISTRATION_ERROR =
-  "A registration already exists with this email or phone number. To update your details, email Savidesignstudio2@gmail.com.";
+const KNOWN_EMAIL_DOMAINS = EMAIL_PROVIDERS.concat(["mail.com"]);
+const TURNSTILE_SECRET_KEY = PropertiesService.getScriptProperties().getProperty(
+  "TURNSTILE_SECRET_KEY",
+);
+const RATE_LIMIT_WINDOW_SECONDS = 600;
+const RATE_LIMIT_MAX_SUBMISSIONS = 3;
+// BEGIN GENERATED COUNTRY LIST
+const SUPPORTED_COUNTRY_NAMES = new Set([
+  "Afghanistan", "Åland Islands", "Albania", "Algeria", "American Samoa", "Andorra", "Angola", "Anguilla", "Antigua and Barbuda", "Argentina", "Armenia", "Aruba", "Ascension Island", "Australia", "Austria", "Azerbaijan", "Bahamas", "Bahrain", "Bangladesh", "Barbados", "Belarus", "Belgium", "Belize", "Benin", "Bermuda", "Bhutan", "Bolivia", "Bonaire, Sint Eustatius and Saba", "Bosnia and Herzegovina", "Botswana", "Brazil", "British Indian Ocean Territory", "Brunei Darussalam", "Bulgaria", "Burkina Faso", "Burundi", "Cambodia", "Cameroon", "Canada", "Cape Verde", "Cayman Islands", "Central African Republic", "Chad", "Chile", "China", "Christmas Island", "Cocos (Keeling) Islands", "Colombia", "Comoros", "Congo", "Congo, Democratic Republic of the", "Cook Islands", "Costa Rica", "Cote d'Ivoire", "Croatia", "Cuba", "Curaçao", "Cyprus", "Czech Republic", "Denmark", "Djibouti", "Dominica", "Dominican Republic", "Ecuador", "Egypt", "El Salvador", "Equatorial Guinea", "Eritrea", "Estonia", "Ethiopia", "Falkland Islands", "Faroe Islands", "Federated States of Micronesia", "Fiji", "Finland", "France", "French Guiana", "French Polynesia", "Gabon", "Gambia", "Georgia", "Germany", "Ghana", "Gibraltar", "Greece", "Greenland", "Grenada", "Guadeloupe", "Guam", "Guatemala", "Guernsey", "Guinea", "Guinea-Bissau", "Guyana", "Haiti", "Holy See (Vatican City State)", "Honduras", "Hong Kong", "Hungary", "Iceland", "India", "Indonesia", "Iran", "Iraq", "Ireland", "Isle of Man", "Israel", "Italy", "Jamaica", "Japan", "Jersey", "Jordan", "Kazakhstan", "Kenya", "Kiribati", "Kosovo", "Kuwait", "Kyrgyzstan", "Laos", "Latvia", "Lebanon", "Lesotho", "Liberia", "Libya", "Liechtenstein", "Lithuania", "Luxembourg", "Macao", "Madagascar", "Malawi", "Malaysia", "Maldives", "Mali", "Malta", "Marshall Islands", "Martinique", "Mauritania", "Mauritius", "Mayotte", "Mexico", "Moldova", "Monaco", "Mongolia", "Montenegro", "Montserrat", "Morocco", "Mozambique", "Myanmar", "Namibia", "Nauru", "Nepal", "Netherlands", "New Caledonia", "New Zealand", "Nicaragua", "Niger", "Nigeria", "Niue", "Norfolk Island", "North Korea", "North Macedonia", "Northern Mariana Islands", "Norway", "Oman", "Pakistan", "Palau", "Palestine", "Panama", "Papua New Guinea", "Paraguay", "Peru", "Philippines", "Poland", "Portugal", "Puerto Rico", "Qatar", "Reunion", "Romania", "Russia", "Rwanda", "Saint Barthélemy", "Saint Helena", "Saint Kitts and Nevis", "Saint Lucia", "Saint Martin (French Part)", "Saint Pierre and Miquelon", "Saint Vincent and the Grenadines", "Samoa", "San Marino", "Sao Tome and Principe", "Saudi Arabia", "Senegal", "Serbia", "Seychelles", "Sierra Leone", "Singapore", "Sint Maarten", "Slovakia", "Slovenia", "Solomon Islands", "Somalia", "South Africa", "South Korea", "South Sudan", "Spain", "Sri Lanka", "Sudan", "Suriname", "Svalbard and Jan Mayen", "Swaziland", "Sweden", "Switzerland", "Syria", "Taiwan", "Tajikistan", "Tanzania", "Thailand", "Timor-Leste", "Togo", "Tokelau", "Tonga", "Trinidad and Tobago", "Tristan da Cunha", "Tunisia", "Turkey", "Turkmenistan", "Turks and Caicos Islands", "Tuvalu", "Uganda", "Ukraine", "United Arab Emirates", "United Kingdom", "United States", "Uruguay", "Uzbekistan", "Vanuatu", "Venezuela", "Vietnam", "Virgin Islands, British", "Virgin Islands, U.S.", "Wallis and Futuna", "Western Sahara", "Yemen", "Zambia", "Zimbabwe"
+]);
+// END GENERATED COUNTRY LIST
+const DUPLICATE_REGISTRATION_CONTACT =
+  " To update your details, email Savidesignstudio2@gmail.com.";
 
 const COLUMN_DEFINITIONS = [
   { key: "name", header: "Name", required: true },
@@ -63,6 +74,8 @@ function doPost(event) {
     }
 
     const values = validatePayload_(payload);
+    verifyTurnstile_(payload.verificationToken, submissionId);
+    enforceSubmissionRateLimit_(values);
     appendRegistration_(values);
 
     return browserResponse_({
@@ -99,6 +112,60 @@ function requiredSubmissionId_(value) {
     throw new Error("Invalid submission ID.");
   }
   return id;
+}
+
+function verifyTurnstile_(value, submissionId) {
+  const token = String(value || "").trim();
+  if (!TURNSTILE_SECRET_KEY) {
+    throw new Error("Registration verification is unavailable.");
+  }
+  if (!token || token.length > 2048) {
+    throw new Error("Complete the verification before submitting.");
+  }
+
+  try {
+    const response = UrlFetchApp.fetch(
+      "https://challenges.cloudflare.com/turnstile/v0/siteverify",
+      {
+        method: "post",
+        payload: {
+          secret: TURNSTILE_SECRET_KEY,
+          response: token,
+          idempotency_key: submissionId,
+        },
+        muteHttpExceptions: true,
+      },
+    );
+    const result = JSON.parse(response.getContentText());
+    if (!result.success) {
+      throw new Error("Verification failed.");
+    }
+  } catch (error) {
+    console.error("Turnstile verification failed", error);
+    throw new Error("Verification failed. Please try again.");
+  }
+}
+
+function enforceSubmissionRateLimit_(values) {
+  const cache = CacheService.getScriptCache();
+  const identifier = values.email + "|" + values.phone;
+  const digest = Utilities.computeDigest(
+    Utilities.DigestAlgorithm.SHA_256,
+    identifier,
+  );
+  const cacheKey = "registration-rate-" + Utilities.base64EncodeWebSafe(digest);
+  const lock = LockService.getScriptLock();
+  lock.waitLock(10000);
+
+  try {
+    const attempts = Number(cache.get(cacheKey) || "0");
+    if (attempts >= RATE_LIMIT_MAX_SUBMISSIONS) {
+      throw new Error("Too many attempts. Please try again later.");
+    }
+    cache.put(cacheKey, String(attempts + 1), RATE_LIMIT_WINDOW_SECONDS);
+  } finally {
+    lock.releaseLock();
+  }
 }
 
 function validatePayload_(payload) {
@@ -217,14 +284,25 @@ function assertNoDuplicateRegistration_(sheet, headers, keyByHeader, values) {
   const registrations = sheet
     .getRange(2, 1, lastRow - 1, headers.length)
     .getDisplayValues();
-  const hasDuplicate = registrations.some(function (registration) {
+  const duplicateEmail = registrations.some(function (registration) {
     const email = String(registration[emailColumn] || "").trim().toLowerCase();
+    return email === values.email;
+  });
+  const duplicatePhone = registrations.some(function (registration) {
     const phone = String(registration[phoneColumn] || "").trim();
-    return email === values.email || phone === values.phone;
+    return phone === values.phone;
   });
 
-  if (hasDuplicate) {
-    throw new Error(DUPLICATE_REGISTRATION_ERROR);
+  if (duplicateEmail || duplicatePhone) {
+    const duplicateValues = [];
+    if (duplicateEmail) duplicateValues.push("email (" + values.email + ")");
+    if (duplicatePhone) duplicateValues.push("phone number (" + values.phone + ")");
+    throw new Error(
+      "A registration already exists with " +
+        duplicateValues.join(" and ") +
+        "." +
+        DUPLICATE_REGISTRATION_CONTACT,
+    );
   }
 }
 
@@ -257,7 +335,7 @@ function requiredName_(value) {
 
 function requiredCountry_(value) {
   const country = requiredText_(value, "Country", 80);
-  if (!/^[A-Za-z][A-Za-z .'-]*$/.test(country)) {
+  if (!SUPPORTED_COUNTRY_NAMES.has(country)) {
     throw new Error("Country is invalid.");
   }
   return country;
@@ -265,7 +343,7 @@ function requiredCountry_(value) {
 
 function hasLikelyProviderTypo_(email) {
   const domain = String(email).toLowerCase().split("@")[1];
-  if (!domain || EMAIL_PROVIDERS.indexOf(domain) !== -1) return false;
+  if (!domain || KNOWN_EMAIL_DOMAINS.indexOf(domain) !== -1) return false;
 
   return EMAIL_PROVIDERS.some(function (provider) {
     return editDistance_(domain, provider) === 1;

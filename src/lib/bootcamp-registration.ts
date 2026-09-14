@@ -9,6 +9,7 @@ export interface BootcampRegistrationPayload {
 	figmaExperience: string;
 	hasPortfolio: string;
 	consent: boolean;
+	verificationToken?: string;
 }
 
 const REQUEST_TIMEOUT_MS = 15_000;

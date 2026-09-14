@@ -10,6 +10,7 @@ import {
 	useForm,
 } from "react-hook-form";
 import { type Country, isValidPhoneNumber } from "react-phone-number-input";
+import countryNames from "react-phone-number-input/locale/en.json";
 import { z } from "zod";
 import bootcampFormImage from "@/assets/bootcamp-form-img.png";
 import { Button } from "@/components/ui/button";
@@ -45,6 +46,7 @@ import {
 	SelectValue,
 } from "@/components/ui/select";
 import { Spinner } from "@/components/ui/spinner";
+import { Turnstile } from "@/components/ui/turnstile";
 import {
 	type BootcampRegistrationPayload,
 	submitBootcampRegistration,
@@ -77,10 +79,16 @@ const EMAIL_PROVIDERS = [
 	"outlook.com",
 	"hotmail.com",
 ] as const;
-const COUNTRY_NAMES = new Intl.DisplayNames(["en"], { type: "region" });
+const KNOWN_EMAIL_DOMAINS = [...EMAIL_PROVIDERS, "mail.com"] as const;
 const NIGERIA: Country = "NG";
+const DUPLICATE_REGISTRATION_ERROR_PREFIX =
+	"A registration already exists with ";
+const TURNSTILE_SITE_KEY = import.meta.env.VITE_TURNSTILE_SITE_KEY?.trim();
 
-type RegistrationValues = BootcampRegistrationPayload;
+type RegistrationValues = Omit<
+	BootcampRegistrationPayload,
+	"verificationToken"
+>;
 type RegistrationStage = "form" | "review" | "success";
 type SelectFieldName =
 	| "occupation"
@@ -199,7 +207,7 @@ function hasLikelyProviderTypo(email: string) {
 	const domain = email.toLowerCase().split("@")[1];
 	if (
 		!domain ||
-		EMAIL_PROVIDERS.includes(domain as (typeof EMAIL_PROVIDERS)[number])
+		KNOWN_EMAIL_DOMAINS.includes(domain as (typeof KNOWN_EMAIL_DOMAINS)[number])
 	) {
 		return false;
 	}
@@ -382,7 +390,7 @@ function SelectField({
 								)}
 							>
 								<SelectValue
-									className="text-sm text-body-primary/40"
+									className="text-sm focus-visible:text-body-primary/40"
 									placeholder={config.placeholder}
 								/>
 							</SelectTrigger>
@@ -450,6 +458,8 @@ export default function RegistrationDialog({
 	const [stage, setStage] = useState<RegistrationStage>("form");
 	const [countryCode, setCountryCode] = useState<Country>(NIGERIA);
 	const [submissionError, setSubmissionError] = useState<string | null>(null);
+	const [verificationToken, setVerificationToken] = useState("");
+	const [verificationResetKey, setVerificationResetKey] = useState(0);
 	const submissionAttemptRef = useRef(0);
 	const {
 		control,
@@ -484,19 +494,28 @@ export default function RegistrationDialog({
 	});
 
 	const confirmRegistration = handleSubmit(async (values) => {
+		if (!verificationToken) {
+			setSubmissionError("Complete the verification before submitting.");
+			return;
+		}
+
 		const attempt = ++submissionAttemptRef.current;
 		setSubmissionError(null);
 		try {
-			await submitBootcampRegistration(values);
+			await submitBootcampRegistration({ ...values, verificationToken });
 			if (attempt === submissionAttemptRef.current) setStage("success");
 		} catch (error) {
 			console.error("Bootcamp registration failed", error);
 			if (attempt === submissionAttemptRef.current) {
+				setVerificationToken("");
+				setVerificationResetKey((key) => key + 1);
 				const reason = error instanceof Error ? error.message : "";
 				setSubmissionError(
-					reason
-						? "We couldn't submit your details: " + reason
-						: "We couldn't submit your details. Check your connection and try again.",
+					reason.startsWith(DUPLICATE_REGISTRATION_ERROR_PREFIX)
+						? reason
+						: reason
+							? "We couldn't submit your details: " + reason + " Try again."
+							: "We couldn't submit your details. Check your connection and try again.",
 				);
 			}
 		}
@@ -526,7 +545,11 @@ export default function RegistrationDialog({
 			open={open}
 			disablePointerDismissal
 			onOpenChange={(nextOpen, eventDetails) => {
-				if (nextOpen || eventDetails.reason === "close-press") {
+				if (
+					nextOpen ||
+					eventDetails.reason === "close-press" ||
+					eventDetails.reason === "escape-key"
+				) {
 					onOpenChange(nextOpen);
 				}
 			}}
@@ -591,9 +614,22 @@ export default function RegistrationDialog({
 										className="text-center text-sm text-destructive"
 										role="alert"
 									>
-										{submissionError} Try again.
+										{submissionError}
 									</p>
 								) : null}
+								{TURNSTILE_SITE_KEY ? (
+									<Turnstile
+										key={verificationResetKey}
+										siteKey={TURNSTILE_SITE_KEY}
+										onVerify={setVerificationToken}
+										onError={() => setVerificationToken("")}
+									/>
+								) : (
+									<p className="text-sm text-destructive" role="alert">
+										Registration verification is unavailable. Please try again
+										later.
+									</p>
+								)}
 								<div className="flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
 									<Button
 										type="button"
@@ -603,7 +639,10 @@ export default function RegistrationDialog({
 										<ArrowLeftIcon data-icon="inline-start" />
 										Back to edit
 									</Button>
-									<Button type="submit" disabled={isSubmitting}>
+									<Button
+										type="submit"
+										disabled={isSubmitting || !TURNSTILE_SITE_KEY}
+									>
 										{isSubmitting ? (
 											<>
 												<Spinner data-icon="inline-start" />
@@ -666,7 +705,7 @@ export default function RegistrationDialog({
 														setCountryCode(nextCountry);
 														setValue(
 															"country",
-															COUNTRY_NAMES.of(nextCountry) ?? nextCountry,
+															countryNames[nextCountry] ?? nextCountry,
 															{ shouldDirty: true, shouldValidate: true },
 														);
 														void trigger("phone");

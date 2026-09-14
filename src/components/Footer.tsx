@@ -52,7 +52,7 @@ export default function Footer() {
 		>
 			<img
 				src={footerBackground}
-				alt="footer background"
+				alt=""
 				loading="lazy"
 				decoding="async"
 				className="absolute inset-0 -z-20 size-full object-cover object-bottom"

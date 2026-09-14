@@ -8,7 +8,6 @@ import {
 } from "@/components/ui/accordion";
 import { buttonVariants } from "@/components/ui/button";
 import {
-	BOOTCAMP_CURRICULUM,
 	BOOTCAMP_OFFERINGS,
 	BOOTCAMP_OFFERINGS_COPY,
 	type BootcampOffering,
@@ -112,6 +111,60 @@ function CourseCard({
 	);
 }
 
+function CurriculumSection({ offering }: { offering: BootcampOffering }) {
+	return (
+		<div className="mt-5 border border-hairline p-4 lg:mt-6 lg:p-8">
+			<div className="flex flex-col gap-2 border-hairline border-b pb-6 lg:flex-row lg:items-end lg:justify-between">
+				<div>
+					<p className="text-surface-action-secondary text-paragraph-sm">
+						{offering.name}
+					</p>
+					<h4 className="mt-2 text-h3">What this class covers</h4>
+				</div>
+				<p className="text-body-secondary text-paragraph-sm">
+					Open a module to read its outcomes
+				</p>
+			</div>
+
+			<Accordion className="mt-2">
+				{offering.curriculum.map((module) => (
+					<AccordionItem
+						key={module.slug}
+						value={`${offering.slug}-${module.slug}`}
+						className="border-hairline"
+					>
+						<AccordionTrigger className="items-center py-5 text-heading text-paragraph-lg hover:no-underline">
+							<span className="flex items-center gap-3">
+								{module.title}
+								<span className="bg-surface-default px-2 py-1 text-body-secondary text-[0.6875rem] leading-none">
+									{module.items.length} outcomes
+								</span>
+							</span>
+						</AccordionTrigger>
+						<AccordionContent className="pb-6">
+							<ul className="grid gap-x-10 gap-y-4 lg:grid-cols-2">
+								{module.items.map((item) => (
+									<li
+										key={item}
+										className="flex items-start gap-3 text-body-secondary text-paragraph-sm"
+									>
+										<img
+											src="/icons/sparkle.svg"
+											alt=""
+											className="mt-0.5 size-4 shrink-0"
+										/>
+										<span>{item}</span>
+									</li>
+								))}
+							</ul>
+						</AccordionContent>
+					</AccordionItem>
+				))}
+			</Accordion>
+		</div>
+	);
+}
+
 function CompareAndExpand() {
 	return (
 		<article className="mt-10 lg:mt-14">
@@ -129,55 +182,9 @@ function CompareAndExpand() {
 				))}
 			</div>
 
-			<div className="mt-5 border border-hairline p-4 lg:mt-6 lg:p-8">
-				<div className="flex flex-col gap-2 border-hairline border-b pb-6 lg:flex-row lg:items-end lg:justify-between">
-					<div>
-						<p className="text-surface-action-secondary text-paragraph-sm">
-							Shared curriculum
-						</p>
-						<h4 className="mt-2 text-h3">What both paths cover</h4>
-					</div>
-					<p className="text-body-secondary text-paragraph-sm">
-						Open a module to read its outcomes
-					</p>
-				</div>
-
-				<Accordion className="mt-2">
-					{BOOTCAMP_CURRICULUM.map((module) => (
-						<AccordionItem
-							key={module.slug}
-							value={module.slug}
-							className="border-hairline"
-						>
-							<AccordionTrigger className="items-center py-5 text-heading text-paragraph-lg hover:no-underline">
-								<span className="flex items-center gap-3">
-									{module.title}
-									<span className="bg-surface-default px-2 py-1 text-body-secondary text-[0.6875rem] leading-none">
-										{module.items.length} outcomes
-									</span>
-								</span>
-							</AccordionTrigger>
-							<AccordionContent className="pb-6">
-								<ul className="grid gap-x-10 gap-y-4 lg:grid-cols-2">
-									{module.items.map((item) => (
-										<li
-											key={item}
-											className="flex items-start gap-3 text-body-secondary text-paragraph-sm"
-										>
-											<img
-												src="/icons/sparkle.svg"
-												alt=""
-												className="mt-0.5 size-4 shrink-0"
-											/>
-											<span>{item}</span>
-										</li>
-									))}
-								</ul>
-							</AccordionContent>
-						</AccordionItem>
-					))}
-				</Accordion>
-			</div>
+			{BOOTCAMP_OFFERINGS.map((offering) => (
+				<CurriculumSection key={offering.slug} offering={offering} />
+			))}
 		</article>
 	);
 }

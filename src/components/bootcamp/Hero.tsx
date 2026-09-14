@@ -119,11 +119,11 @@ export default function Hero({ onRegister }: { onRegister: () => void }) {
 			<ColorBand />
 			<DesktopColorBand />
 
-			<div className="hidden mx-auto w-full max-w-360 justify-center px-6 pt-9 pb-0 lg:flex lg:px-20 lg:pt-10 lg:pb-0">
+			<div className="mx-auto w-full lg:max-w-360 justify-center pt-10 flex ">
 				<img
 					src={bootcampFlyer}
 					alt="Bootcamp flyer"
-					className="w-full max-w-85 lg:max-w-250"
+					className="w-full lg:max-w-250"
 				/>
 			</div>
 		</motion.section>
