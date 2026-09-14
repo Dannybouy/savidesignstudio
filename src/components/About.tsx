@@ -146,7 +146,9 @@ export default function About() {
 									98%
 								</p>
 								<blockquote className="text-lg text-on-action">
-									&ldquo;What stood out most was the team&rsquo;s professionalism, clear communication, reliability, and attention to detail.&rdquo;
+									&ldquo;What stood out most was the team&rsquo;s
+									professionalism, clear communication, reliability, and
+									attention to detail.&rdquo;
 								</blockquote>
 							</div>
 						</Card>
@@ -165,7 +167,8 @@ export default function About() {
 										10+ yrs
 									</p>
 									<p className="text-lg text-body-secondary">
-									Serving and helping businesses build standout brands solutions.
+										Serving and helping businesses build standout brands
+										solutions.
 									</p>
 								</div>
 							</Card>

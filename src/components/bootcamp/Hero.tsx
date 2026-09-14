@@ -1,4 +1,5 @@
 import { motion, type Variants } from "motion/react";
+import bootcampFlyer from "@/assets/bootcamp-flyer.avif";
 import { Button } from "@/components/ui/button";
 
 const HEADLINE = "Learn to think and design like a PRO";
@@ -16,15 +17,6 @@ const rise: Variants = {
 		opacity: 1,
 		y: 0,
 		transition: { type: "spring", stiffness: 300, damping: 32 },
-	},
-};
-
-const unveil: Variants = {
-	hidden: { opacity: 0, scale: 1.025 },
-	shown: {
-		opacity: 1,
-		scale: 1,
-		transition: { duration: 0.75, ease: [0.22, 1, 0.36, 1] },
 	},
 };
 
@@ -127,12 +119,11 @@ export default function Hero({ onRegister }: { onRegister: () => void }) {
 			<ColorBand />
 			<DesktopColorBand />
 
-			<div className="mx-auto flex w-full max-w-360 justify-center px-6 pt-9 pb-28 lg:px-20 lg:pt-10 lg:pb-30">
-				<motion.div
-					variants={unveil}
-					role="img"
-					aria-label="Bootcamp video placeholder"
-					className="aspect-[17/20] w-full max-w-85 bg-surface-action lg:aspect-[100/57] lg:max-w-250"
+			<div className="hidden mx-auto w-full max-w-360 justify-center px-6 pt-9 pb-0 lg:flex lg:px-20 lg:pt-10 lg:pb-0">
+				<img
+					src={bootcampFlyer}
+					alt="Bootcamp flyer"
+					className="w-full max-w-85 lg:max-w-250"
 				/>
 			</div>
 		</motion.section>

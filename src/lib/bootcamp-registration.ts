@@ -1,6 +1,7 @@
 export interface BootcampRegistrationPayload {
 	name: string;
 	email: string;
+	country: string;
 	phone: string;
 	occupation: string;
 	experience: string;

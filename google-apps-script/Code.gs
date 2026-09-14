@@ -24,10 +24,14 @@ const LEARNING_TIMES = [
 ];
 
 const YES_NO_OPTIONS = ["Yes", "No"];
+const EMAIL_PROVIDERS = ["gmail.com", "yahoo.com", "outlook.com", "hotmail.com"];
+const DUPLICATE_REGISTRATION_ERROR =
+  "A registration already exists with this email or phone number. To update your details, email Savidesignstudio2@gmail.com.";
 
 const COLUMN_DEFINITIONS = [
   { key: "name", header: "Name", required: true },
   { key: "email", header: "Email", required: true },
+  { key: "country", header: "Country", required: true },
   { key: "phone", header: "Phone Number", required: true },
   { key: "occupation", header: "Occupation", required: true },
   { key: "experience", header: "Experience", required: true },
@@ -100,9 +104,10 @@ function requiredSubmissionId_(value) {
 function validatePayload_(payload) {
   const values = {
     submittedAt: new Date(),
-    name: requiredText_(payload.name, "Name", 120),
+    name: requiredName_(payload.name),
     email: requiredText_(payload.email, "Email", 254).toLowerCase(),
-    phone: requiredText_(payload.phone, "Phone", 40),
+    country: requiredCountry_(payload.country),
+    phone: requiredText_(payload.phone, "Phone", 16),
     occupation: requiredOption_(payload.occupation, "Occupation", OCCUPATIONS),
     experience: requiredOption_(
       payload.experience,
@@ -131,8 +136,11 @@ function validatePayload_(payload) {
     throw new Error("Invalid email address.");
   }
 
-  const phoneDigits = values.phone.replace(/\D/g, "");
-  if (!/^[+\d\s().-]+$/.test(values.phone) || phoneDigits.length < 7 || phoneDigits.length > 15) {
+  if (hasLikelyProviderTypo_(values.email)) {
+    throw new Error("Check your email address. The domain may be misspelled.");
+  }
+
+  if (!/^\+[1-9]\d{6,14}$/.test(values.phone)) {
     throw new Error("Invalid phone number.");
   }
 
@@ -187,10 +195,36 @@ function appendRegistration_(values) {
   lock.waitLock(10000);
 
   try {
+    assertNoDuplicateRegistration_(sheet, headers, keyByHeader, values);
     sheet.appendRow(row);
     SpreadsheetApp.flush();
   } finally {
     lock.releaseLock();
+  }
+}
+
+function assertNoDuplicateRegistration_(sheet, headers, keyByHeader, values) {
+  const emailColumn = headers.findIndex(function (header) {
+    return keyByHeader[normalizeHeader_(header)] === "email";
+  });
+  const phoneColumn = headers.findIndex(function (header) {
+    return keyByHeader[normalizeHeader_(header)] === "phone";
+  });
+  const lastRow = sheet.getLastRow();
+
+  if (lastRow < 2) return;
+
+  const registrations = sheet
+    .getRange(2, 1, lastRow - 1, headers.length)
+    .getDisplayValues();
+  const hasDuplicate = registrations.some(function (registration) {
+    const email = String(registration[emailColumn] || "").trim().toLowerCase();
+    const phone = String(registration[phoneColumn] || "").trim();
+    return email === values.email || phone === values.phone;
+  });
+
+  if (hasDuplicate) {
+    throw new Error(DUPLICATE_REGISTRATION_ERROR);
   }
 }
 
@@ -211,6 +245,65 @@ function requiredText_(value, label, maxLength) {
     throw new Error(label + " is invalid.");
   }
   return text;
+}
+
+function requiredName_(value) {
+  const name = requiredText_(value, "Name", 120);
+  if (name.length < 2) {
+    throw new Error("Name is invalid.");
+  }
+  return name;
+}
+
+function requiredCountry_(value) {
+  const country = requiredText_(value, "Country", 80);
+  if (!/^[A-Za-z][A-Za-z .'-]*$/.test(country)) {
+    throw new Error("Country is invalid.");
+  }
+  return country;
+}
+
+function hasLikelyProviderTypo_(email) {
+  const domain = String(email).toLowerCase().split("@")[1];
+  if (!domain || EMAIL_PROVIDERS.indexOf(domain) !== -1) return false;
+
+  return EMAIL_PROVIDERS.some(function (provider) {
+    return editDistance_(domain, provider) === 1;
+  });
+}
+
+function editDistance_(first, second) {
+  const matrix = Array.from({ length: first.length + 1 }, function (_, firstIndex) {
+    return Array.from({ length: second.length + 1 }, function (_, secondIndex) {
+      if (firstIndex === 0) return secondIndex;
+      if (secondIndex === 0) return firstIndex;
+      return 0;
+    });
+  });
+
+  for (let firstIndex = 1; firstIndex <= first.length; firstIndex += 1) {
+    for (let secondIndex = 1; secondIndex <= second.length; secondIndex += 1) {
+      const substitutionCost = first[firstIndex - 1] === second[secondIndex - 1] ? 0 : 1;
+      let distance = Math.min(
+        matrix[firstIndex - 1][secondIndex] + 1,
+        matrix[firstIndex][secondIndex - 1] + 1,
+        matrix[firstIndex - 1][secondIndex - 1] + substitutionCost,
+      );
+
+      if (
+        firstIndex > 1 &&
+        secondIndex > 1 &&
+        first[firstIndex - 1] === second[secondIndex - 2] &&
+        first[firstIndex - 2] === second[secondIndex - 1]
+      ) {
+        distance = Math.min(distance, matrix[firstIndex - 2][secondIndex - 2] + 1);
+      }
+
+      matrix[firstIndex][secondIndex] = distance;
+    }
+  }
+
+  return matrix[first.length][second.length];
 }
 
 function requiredOption_(value, label, options) {

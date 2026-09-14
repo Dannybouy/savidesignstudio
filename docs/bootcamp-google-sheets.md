@@ -8,6 +8,7 @@ Put these headers in row 1. Order does not matter:
 
 - Name
 - Email
+- Country
 - Phone Number
 - Occupation
 - Experience
@@ -17,7 +18,7 @@ Put these headers in row 1. Order does not matter:
 - Submitted At (optional)
 - Consent (optional)
 
-The first eight headers are required. The form's internal payload keys remain `name`, `email`, `phone`, `occupation`, `experience`, `learningTime`, `figmaExperience`, and `hasPortfolio`; `Code.gs` maps them to these exact sheet headers.
+The first nine headers are required. Put `Country` before `Phone Number`. The form sends `name`, `email`, `country`, `phone`, `occupation`, `experience`, `learningTime`, `figmaExperience`, and `hasPortfolio`; `Code.gs` maps them to these exact sheet headers. `Phone Number` stores the full E.164 value, for example `+2348012345678`.
 
 ## Apps Script
 

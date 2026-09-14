@@ -79,47 +79,45 @@ export default function Footer() {
 					</motion.p>
 
 					<div className="flex items-center gap-2">
-
-					
-					<motion.a
-						variants={rise}
-						href="http://calendly.com/savidesignstudio2"
-						target="_blank"
-						rel="noopener noreferrer"
-						className={buttonVariants({
-							size: "cta",
-							variant: "outline",
-							className:
-								"mt-8 border-transparent bg-surface-page text-heading hover:bg-surface-default lg:mt-10",
-						})}
-					>
-						Grab A Free Call
-						<span
-							aria-hidden
-							className="grid size-8 shrink-0 place-items-center rounded-sm bg-action-gradient shadow-[inset_-2px_2px_2px_0_rgb(255_255_255/0.25)]"
+						<motion.a
+							variants={rise}
+							href="http://calendly.com/savidesignstudio2"
+							target="_blank"
+							rel="noopener noreferrer"
+							className={buttonVariants({
+								size: "cta",
+								variant: "outline",
+								className:
+									"mt-8 border-transparent bg-surface-page text-heading hover:bg-surface-default lg:mt-10",
+							})}
 						>
-							<img
-								src="/icons/arrow-up-right.svg"
-								alt=""
-								className="size-5 brightness-0 invert transition-transform duration-200 ease-out group-hover/button:translate-x-px group-hover/button:-translate-y-px"
-							/>
-						</span>
-					</motion.a>
+							Grab A Free Call
+							<span
+								aria-hidden
+								className="grid size-8 shrink-0 place-items-center rounded-sm bg-action-gradient shadow-[inset_-2px_2px_2px_0_rgb(255_255_255/0.25)]"
+							>
+								<img
+									src="/icons/arrow-up-right.svg"
+									alt=""
+									className="size-5 brightness-0 invert transition-transform duration-200 ease-out group-hover/button:translate-x-px group-hover/button:-translate-y-px"
+								/>
+							</span>
+						</motion.a>
 
-					<motion.a
-						variants={rise}
-						href="mailto:Savidesignstudio2@gmail.com"
-						target="_blank"
-						rel="noopener noreferrer"
-						className={buttonVariants({
-							size: "default",
-							variant: "outline",
-							className:
-								"mt-8 border border-white bg-transparent text-white hover:bg-white lg:mt-10",
-						})}
-					>
-						Send us a mail
-					</motion.a>
+						<motion.a
+							variants={rise}
+							href="mailto:Savidesignstudio2@gmail.com"
+							target="_blank"
+							rel="noopener noreferrer"
+							className={buttonVariants({
+								size: "default",
+								variant: "outline",
+								className:
+									"mt-8 border border-white bg-transparent text-white hover:bg-white lg:mt-10",
+							})}
+						>
+							Send us a mail
+						</motion.a>
 					</div>
 				</div>
 

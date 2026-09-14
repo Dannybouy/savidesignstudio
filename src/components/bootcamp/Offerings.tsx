@@ -118,7 +118,7 @@ function CompareAndExpand() {
 			<p className="text-body-secondary text-paragraph-sm lg:hidden">
 				Swipe to compare both classes
 			</p>
-			<div className="-mx-6 mt-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden lg:mx-0 lg:mt-8 lg:grid lg:grid-cols-2 lg:overflow-visible lg:px-0 lg:pb-0">
+			<div className="-mx-6 mt-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-4 scrollbar-none [&::-webkit-scrollbar]:hidden lg:mx-0 lg:mt-8 lg:grid lg:grid-cols-2 lg:overflow-visible lg:px-0 lg:pb-0">
 				{BOOTCAMP_OFFERINGS.map((offering) => (
 					<CourseCard
 						key={offering.slug}
