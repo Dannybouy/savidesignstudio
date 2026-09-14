@@ -91,6 +91,7 @@ export type BootcampOffering = {
 	ctaLabel: string;
 	ctaHref: string;
 	availability: string;
+	curriculum: BootcampModule[];
 	details: Array<{
 		label: string;
 		value: string;
@@ -101,38 +102,72 @@ export const BOOTCAMP_OFFERINGS_COPY = {
 	eyebrow: "Current offerings",
 	title: "Choose how you want to learn",
 	description:
-		"Compare both paths without reading the same curriculum twice. Pick the class structure that fits how you work best.",
+		"Compare both paths and choose the class structure that fits how you work best.",
 };
 
-export const BOOTCAMP_CURRICULUM: BootcampModule[] = [
-	{
-		slug: "ux-design",
-		title: "UX Design",
-		items: [
-			"Build the UX skills that clients and employers pay for.",
-			"Understand why UX matters and apply design thinking to solve real problems.",
-			"Research users properly, then turn findings into better design decisions.",
-			"Map full user journeys, from empathy maps to service blueprints.",
-			"Build and maintain design systems that scale.",
-			"Ship more than 40 web and mobile screens and build a portfolio that proves what you can do.",
-			"Test and prototype ideas before they go live.",
-			"Graduate with a polished, job-ready portfolio.",
-			"Practise real interview scenarios so you can explain your work clearly.",
-			"Earn a Certificate of Completion that validates your skills.",
-		],
-	},
-	{
-		slug: "ai-for-designers",
-		title: "AI for Designers",
-		items: [
-			"Use ChatGPT, Claude, and Figma Make to move from a blank canvas to polished screens faster.",
-			"Write prompts for UI layouts, user personas, UX copy, and microcopy without losing time to rewrites.",
-			"Use AI to synthesize interviews, spot patterns, and turn raw feedback into design decisions.",
-			"Know when to follow AI suggestions and when to push back, so you stay in control of the creative process.",
-			"Understand how AI is changing client expectations and position yourself ahead of the curve.",
-		],
-	},
+const ADVANCED_UX_ITEMS = [
+	"Build the UX skills that clients and employers pay for.",
+	"Understand why UX matters and apply design thinking to solve real problems.",
+	"Research users properly, then turn findings into better design decisions.",
+	"Map full user journeys, from empathy maps to service blueprints.",
+	"Build and maintain design systems that scale.",
+	"Ship more than 40 web and mobile screens and build a portfolio that proves what you can do.",
+	"Test and prototype ideas before they go live.",
+	"Graduate with a polished, job-ready portfolio.",
+	"Practise real interview scenarios so you can explain your work clearly.",
+	"Earn a Certificate of Completion that validates your skills.",
 ];
+
+const MENTORSHIP_UX_ITEMS = [
+	"Designed for anyone looking to go from zero to job-ready in UI/UX design.",
+	"Covers the complete curriculum from our Foundation and Advanced tracks.",
+	"Master industry-standard tools including Miro, Notion, Adobe Illustrator, and FigJam.",
+	"Gain practical design tips, productivity shortcuts, and curated resources.",
+	"Tackle real-world case studies and projects to sharpen your problem-solving abilities.",
+	"One-on-one guidance from an experienced Senior Product Designer.",
+	"Develop cross-functional skills for working alongside engineers and PMs.",
+	"Earn a verified Certificate of Completion.",
+	"Career coaching, job referrals, and placement assistance when openings arise.",
+	"A 6-week internship opportunity upon finishing the program.",
+];
+
+const AI_FOR_DESIGNERS_ITEMS = [
+	"Use ChatGPT, Claude, and Figma Make to move from a blank canvas to polished screens faster.",
+	"Write prompts for UI layouts, user personas, UX copy, and microcopy without losing time to rewrites.",
+	"Use AI to synthesize interviews, spot patterns, and turn raw feedback into design decisions.",
+	"Know when to follow AI suggestions and when to push back, so you stay in control of the creative process.",
+	"Understand how AI is changing client expectations and position yourself ahead of the curve.",
+];
+
+function createModule(
+	slug: string,
+	title: string,
+	items: string[],
+): BootcampModule {
+	return { slug, title, items: [...items] };
+}
+
+export const BOOTCAMP_CURRICULUM: Record<
+	"advanced-class" | "mentorship-class",
+	BootcampModule[]
+> = {
+	"advanced-class": [
+		createModule("ux-design", "UX Design", ADVANCED_UX_ITEMS),
+		createModule(
+			"ai-for-designers",
+			"AI for Designers",
+			AI_FOR_DESIGNERS_ITEMS,
+		),
+	],
+	"mentorship-class": [
+		createModule("ux-design", "UX Design", MENTORSHIP_UX_ITEMS),
+		createModule(
+			"ai-for-designers",
+			"AI for Designers",
+			AI_FOR_DESIGNERS_ITEMS,
+		),
+	],
+};
 
 export const BOOTCAMP_OFFERINGS: BootcampOffering[] = [
 	{
@@ -144,6 +179,7 @@ export const BOOTCAMP_OFFERINGS: BootcampOffering[] = [
 		ctaLabel: "Claim Your Spot Now",
 		ctaHref: "/#book-a-call",
 		availability: "Limited seats available each cohort",
+		curriculum: BOOTCAMP_CURRICULUM["advanced-class"],
 		details: [
 			{ label: "Duration", value: "9 Weeks" },
 			{ label: "Schedule", value: "2x/Week" },
@@ -163,6 +199,7 @@ export const BOOTCAMP_OFFERINGS: BootcampOffering[] = [
 		ctaLabel: "Claim Your Spot Now",
 		ctaHref: "/#book-a-call",
 		availability: "Limited seats available each cohort",
+		curriculum: BOOTCAMP_CURRICULUM["mentorship-class"],
 		details: [
 			{ label: "Duration", value: "9 Weeks" },
 			{ label: "Schedule", value: "9 Weeks" },

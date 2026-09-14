@@ -1,6 +1,7 @@
 export interface BootcampRegistrationPayload {
 	name: string;
 	email: string;
+	country: string;
 	phone: string;
 	occupation: string;
 	experience: string;
@@ -8,6 +9,7 @@ export interface BootcampRegistrationPayload {
 	figmaExperience: string;
 	hasPortfolio: string;
 	consent: boolean;
+	verificationToken?: string;
 }
 
 const REQUEST_TIMEOUT_MS = 15_000;
