@@ -1,6 +1,6 @@
 import clarifyhouseLogo from "@/assets/clarifyhouse.svg";
 import clarifyhouseCeo from "@/assets/clarifyhouse-ceo.png";
-import deraLogo from "@/assets/dera.svg";
+import deraLogo from "@/assets/dera.png";
 import hokLogo from "@/assets/hok.png";
 import landsafeLogo from "@/assets/landsafe.svg";
 import landsafeCeo from "@/assets/landsafe-ceo.png";
@@ -285,15 +285,15 @@ export const TESTIMONIALS: Testimonial[] = [
 		title: "Founder & CEO",
 	},
 	{
-		slug: "clarify",
-		logo: clarifyhouseLogo,
-		logoAlt: "Clarify",
+		slug: "secsystems",
+		logo: secsystemsLogo,
+		logoAlt: "Secsystems",
 		quote:
-			"Within 24 hours of receiving the copy, Savi Design Studio simplified everything! It's designed for conversions, not just aesthetics.",
-		body: "They were thinking through hierarchy, user behaviour and decision flow. The Clarify House website is very user friendly and easy to navigate.",
-		avatar: clarifyhouseCeo,
-		name: "Patricia Ihunwo",
-		title: "Founder & CEO",
+			"Ari design Co did an amazing job on the motion design for our Soft POS project. The animation brought our product to life and communicated the “tap to pay” experience to the users seamlessly.",
+		body: "They were patient with feedback and clearly cared about the details. Would work with them again",
+		avatar: "",
+		name: "Adedamola Adeleye",
+		title: "CEO",
 	},
 	{
 		slug: "clarify-repeat",

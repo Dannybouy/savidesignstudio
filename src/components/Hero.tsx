@@ -191,7 +191,7 @@ export default function Hero() {
 									alt={`${project.client} ${project.name} website design`}
 									loading={index < 2 ? "eager" : "lazy"}
 									fetchPriority={index < 2 ? "high" : "auto"}
-									className="aspect-[45/32] size-full select-none object-cover object-top"
+									className="aspect-45/32 size-full select-none object-cover object-top"
 								/>
 							</figure>
 						))}
