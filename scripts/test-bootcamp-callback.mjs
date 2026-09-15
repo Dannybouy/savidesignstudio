@@ -5,6 +5,13 @@ import vm from "node:vm";
 const source = fs.readFileSync("google-apps-script/Code.gs", "utf8");
 const rateLimitCache = new Map();
 let verificationCalls = 0;
+let verificationRequest;
+let verificationResult = {
+	success: true,
+	action: "bootcamp_registration",
+	hostname: "savidesignstudios.com",
+	"error-codes": [],
+};
 const context = {
 	console,
 	HtmlService: {
@@ -20,13 +27,25 @@ const context = {
 	},
 	PropertiesService: {
 		getScriptProperties() {
-			return { getProperty: () => "test-secret" };
+			return {
+				getProperty(name) {
+					if (name === "TURNSTILE_SECRET_KEY") return "test-secret";
+					if (name === "TURNSTILE_HOSTNAMES") {
+						return "savidesignstudios.com,savidesignstudios.netlify.app";
+					}
+					return null;
+				},
+			};
 		},
 	},
 	UrlFetchApp: {
-		fetch() {
+		fetch(_url, request) {
 			verificationCalls += 1;
-			return { getContentText: () => JSON.stringify({ success: true }) };
+			verificationRequest = request;
+			return {
+				getResponseCode: () => 200,
+				getContentText: () => JSON.stringify(verificationResult),
+			};
 		},
 	},
 	CacheService: {
@@ -84,6 +103,43 @@ assert.deepEqual(countTargets(callbackScript), { parent: 0, top: 1 });
 
 context.verifyTurnstile("valid-token", "123e4567-e89b-12d3-a456-426614174000");
 assert.equal(verificationCalls, 1);
+assert.equal(verificationRequest.payload.secret, "test-secret");
+assert.equal(verificationRequest.payload.response, "valid-token");
+
+verificationResult = {
+	success: true,
+	action: "wrong_action",
+	hostname: "savidesignstudios.com",
+};
+assert.throws(
+	() =>
+		context.verifyTurnstile(
+			"valid-token",
+			"123e4567-e89b-12d3-a456-426614174000",
+		),
+	/Verification failed/,
+);
+
+verificationResult = {
+	success: true,
+	action: "bootcamp_registration",
+	hostname: "attacker.example",
+};
+assert.throws(
+	() =>
+		context.verifyTurnstile(
+			"valid-token",
+			"123e4567-e89b-12d3-a456-426614174000",
+		),
+	/Verification failed/,
+);
+
+verificationResult = {
+	success: true,
+	action: "bootcamp_registration",
+	hostname: "savidesignstudios.com",
+	"error-codes": [],
+};
 assert.throws(() =>
 	context.verifyTurnstile("", "123e4567-e89b-12d3-a456-426614174000"),
 );
@@ -92,7 +148,10 @@ const registration = { email: "test@example.com", phone: "+2348012345678" };
 for (let attempt = 0; attempt < 3; attempt += 1) {
 	context.enforceRateLimit(registration);
 }
-assert.throws(() => context.enforceRateLimit(registration), /Too many attempts/);
+assert.throws(
+	() => context.enforceRateLimit(registration),
+	/Too many attempts/,
+);
 
 const headers = ["Email", "Phone Number"];
 const keyByHeader = { email: "email", phonenumber: "phone" };
@@ -103,7 +162,9 @@ const duplicateRegistration = {
 const sheet = {
 	getLastRow: () => 2,
 	getRange: () => ({
-		getDisplayValues: () => [[duplicateRegistration.email, duplicateRegistration.phone]],
+		getDisplayValues: () => [
+			[duplicateRegistration.email, duplicateRegistration.phone],
+		],
 	}),
 };
 assert.throws(

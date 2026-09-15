@@ -26,8 +26,18 @@ const LEARNING_TIMES = [
 const YES_NO_OPTIONS = ["Yes", "No"];
 const EMAIL_PROVIDERS = ["gmail.com", "yahoo.com", "outlook.com", "hotmail.com"];
 const KNOWN_EMAIL_DOMAINS = EMAIL_PROVIDERS.concat(["mail.com"]);
-const TURNSTILE_SECRET_KEY = PropertiesService.getScriptProperties().getProperty(
-  "TURNSTILE_SECRET_KEY",
+const SCRIPT_PROPERTIES = PropertiesService.getScriptProperties();
+const TURNSTILE_SECRET_KEY = SCRIPT_PROPERTIES.getProperty(
+  "TURNSTILE_SECRET_KEY"
+);
+const TURNSTILE_EXPECTED_ACTION = "bootcamp_registration";
+const TURNSTILE_ALLOWED_HOSTNAMES = new Set(
+  String(SCRIPT_PROPERTIES.getProperty("TURNSTILE_HOSTNAMES") || "")
+    .split(",")
+    .map(function (hostname) {
+      return hostname.trim().toLowerCase();
+    })
+    .filter(Boolean)
 );
 const RATE_LIMIT_WINDOW_SECONDS = 600;
 const RATE_LIMIT_MAX_SUBMISSIONS = 3;
@@ -116,15 +126,18 @@ function requiredSubmissionId_(value) {
 
 function verifyTurnstile_(value, submissionId) {
   const token = String(value || "").trim();
-  if (!TURNSTILE_SECRET_KEY) {
+  if (!TURNSTILE_SECRET_KEY || TURNSTILE_ALLOWED_HOSTNAMES.size === 0) {
     throw new Error("Registration verification is unavailable.");
   }
   if (!token || token.length > 2048) {
     throw new Error("Complete the verification before submitting.");
   }
 
+  let response;
+  let result;
+
   try {
-    const response = UrlFetchApp.fetch(
+    response = UrlFetchApp.fetch(
       "https://challenges.cloudflare.com/turnstile/v0/siteverify",
       {
         method: "post",
@@ -136,13 +149,35 @@ function verifyTurnstile_(value, submissionId) {
         muteHttpExceptions: true,
       },
     );
-    const result = JSON.parse(response.getContentText());
-    if (!result.success) {
-      throw new Error("Verification failed.");
-    }
+    result = JSON.parse(response.getContentText());
   } catch (error) {
-    console.error("Turnstile verification failed", error);
-    throw new Error("Verification failed. Please try again.");
+    console.error("Turnstile Siteverify request failed", error);
+    throw new Error("Verification service is unavailable.");
+  }
+
+  const responseCode = response.getResponseCode();
+  if (responseCode < 200 || responseCode >= 300) {
+    console.error("Turnstile Siteverify HTTP status", responseCode);
+    throw new Error("Verification service is unavailable.");
+  }
+
+  if (!result.success) {
+    console.error(
+      "Turnstile rejected token",
+      JSON.stringify({ errorCodes: result["error-codes"] || [] }),
+    );
+    throw new Error("Verification failed.");
+  }
+
+  if (result.action !== TURNSTILE_EXPECTED_ACTION) {
+    console.error("Turnstile action mismatch", result.action);
+    throw new Error("Verification failed.");
+  }
+
+  const hostname = String(result.hostname || "").toLowerCase();
+  if (!TURNSTILE_ALLOWED_HOSTNAMES.has(hostname)) {
+    console.error("Turnstile hostname rejected", hostname);
+    throw new Error("Verification failed.");
   }
 }
 

@@ -7,12 +7,14 @@ declare global {
 				container: HTMLElement,
 				options: {
 					sitekey: string;
+					action: string;
 					callback: (token: string) => void;
 					"error-callback": () => void;
 					"expired-callback": () => void;
 				},
 			) => string;
 			remove: (widgetId: string) => void;
+			reset: (widgetId: string) => void;
 		};
 	}
 }
@@ -38,11 +40,19 @@ function loadTurnstile() {
 
 interface TurnstileProps {
 	siteKey: string;
+	action: string;
+	resetKey: number;
 	onVerify: (token: string) => void;
 	onError: () => void;
 }
 
-export function Turnstile({ siteKey, onVerify, onError }: TurnstileProps) {
+export function Turnstile({
+	siteKey,
+	action,
+	resetKey,
+	onVerify,
+	onError,
+}: TurnstileProps) {
 	const containerRef = useRef<HTMLDivElement>(null);
 	const widgetIdRef = useRef<string | undefined>(undefined);
 	const callbacksRef = useRef({ onVerify, onError });
@@ -58,6 +68,7 @@ export function Turnstile({ siteKey, onVerify, onError }: TurnstileProps) {
 				if (!isActive || !window.turnstile) return;
 				widgetIdRef.current = window.turnstile.render(container, {
 					sitekey: siteKey,
+					action,
 					callback: (token) => callbacksRef.current.onVerify(token),
 					"error-callback": () => callbacksRef.current.onError(),
 					"expired-callback": () => callbacksRef.current.onError(),
@@ -72,7 +83,13 @@ export function Turnstile({ siteKey, onVerify, onError }: TurnstileProps) {
 			}
 			widgetIdRef.current = undefined;
 		};
-	}, [siteKey]);
+	}, [action, siteKey]);
+
+	useEffect(() => {
+		const widgetId = widgetIdRef.current;
+		if (!resetKey || !widgetId || !window.turnstile) return;
+		window.turnstile.reset(widgetId);
+	}, [resetKey]);
 
 	return <div ref={containerRef} />;
 }

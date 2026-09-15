@@ -619,8 +619,9 @@ export default function RegistrationDialog({
 								) : null}
 								{TURNSTILE_SITE_KEY ? (
 									<Turnstile
-										key={verificationResetKey}
 										siteKey={TURNSTILE_SITE_KEY}
+										action="bootcamp_registration"
+										resetKey={verificationResetKey}
 										onVerify={setVerificationToken}
 										onError={() => setVerificationToken("")}
 									/>
