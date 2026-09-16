@@ -9,7 +9,7 @@ export default function BootcampPage() {
 
 	return (
 		<main className="relative">
-			<title>UI/UX Bootcamp 1.0 | Savi Design Studio</title>
+			<title>UI/UX Design Bootcamp in Nigeria | Savi Design Studio</title>
 			<Hero onRegister={() => setRegistrationOpen(true)} />
 			<Offerings />
 			<Tools />

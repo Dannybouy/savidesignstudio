@@ -1,17 +1,27 @@
-import clarifyhouseLogo from "@/assets/clarifyhouse.svg";
 import clarifyhouseCeo from "@/assets/clarifyhouse-ceo.png";
+import clarifyhouseLogo from "@/assets/clarifyhouse.svg";
 import deraLogo from "@/assets/dera.png";
 import hokLogo from "@/assets/hok.png";
-import landsafeLogo from "@/assets/landsafe.svg";
 import landsafeCeo from "@/assets/landsafe-ceo.png";
-import projectCh1 from "@/assets/project-ch-1.avif";
-import projectCh2 from "@/assets/project-ch-2.avif";
-import projectDera1 from "@/assets/project-dera-1.avif";
-import projectDera2 from "@/assets/project-dera-2.avif";
-import projectDera3 from "@/assets/project-dera-3.avif";
-import projectHok1 from "@/assets/project-hok-1.avif";
-import projectHok2 from "@/assets/project-hok-2.avif";
-import projectHok3 from "@/assets/project-hok-3.avif";
+import landsafeLogo from "@/assets/landsafe.svg";
+import projectCh1Mobile from "@/assets/project-ch-mobile-1.avif";
+import projectCh2Mobile from "@/assets/project-ch-mobile-2.avif";
+import projectCh1 from "@/assets/project-ch-web-1.avif";
+import projectCh2 from "@/assets/project-ch-web-2.avif";
+import projectDera1Mobile from "@/assets/project-dera-mobile-1.avif";
+import projectDera2Mobile from "@/assets/project-dera-mobile-2.avif";
+import projectDera3Mobile from "@/assets/project-dera-mobile-3.avif";
+import projectDera1 from "@/assets/project-dera-web-1.avif";
+import projectDera2 from "@/assets/project-dera-web-2.avif";
+import projectDera3 from "@/assets/project-dera-web-3.avif";
+import projectHok1Mobile from "@/assets/project-hok-mobile-1.avif";
+import projectHok2Mobile from "@/assets/project-hok-mobile-2.avif";
+import projectHok3Mobile from "@/assets/project-hok-mobile-3.avif";
+import projectHok1 from "@/assets/project-hok-web-1.avif";
+import projectHok2 from "@/assets/project-hok-web-2.avif";
+import projectHok3 from "@/assets/project-hok-web-3.avif";
+import projectLs1Mobile from "@/assets/project-ls-mobile-1.avif";
+import projectLs2 from "@/assets/project-ls-web-2.avif";
 import q247Logo from "@/assets/qc247.png";
 import secsystemsLogo from "@/assets/secsystems.svg";
 
@@ -139,6 +149,32 @@ const AI_FOR_DESIGNERS_ITEMS = [
 	"Understand how AI is changing client expectations and position yourself ahead of the curve.",
 ];
 
+const AI_AUGMENTED_FOUNDATIONS_ITEMS = [
+	"The New Shape of Product Design.",
+	"Design Thinking, Reframed",
+	"UX Research Fundamentals + AI Co-Research",
+	"Information Architecture & User Flows",
+	"Wireframing & Ideation, Accelerated",
+	"Figma Fundamentails + AI Plugins",
+	"UI Design Principles in a Post-Template World",
+	"Prototyping & AI-Assited Motion",
+	"Projct Sprint",
+	"Project Completion, Presentation & Portfolio Framing",
+];
+
+const STRATEGIC_PRODUCT_DESIGN_ITEMS = [
+	"Advanced UX Research & Insight Synthesis",
+	"Product Thinking & Strategy",
+	"Advanced Information Architecture",
+	"Design Systems in the AI Era",
+	"Advanced UI Design:",
+	"AI-Powered Design & Developer Handoff",
+	"Accessibility & Product Optimization",
+	"Portfolio, Freelancing & Career Growth in an AI Market",
+	"Capstone Project Sprint",
+	"Capstone Completion & Demo Day",
+];
+
 function createModule(
 	slug: string,
 	title: string,
@@ -148,7 +184,10 @@ function createModule(
 }
 
 export const BOOTCAMP_CURRICULUM: Record<
-	"advanced-class" | "mentorship-class",
+	| "advanced-class"
+	| "mentorship-class"
+	| "ai-augmented"
+	| "strategic-product-design",
 	BootcampModule[]
 > = {
 	"advanced-class": [
@@ -167,6 +206,20 @@ export const BOOTCAMP_CURRICULUM: Record<
 			AI_FOR_DESIGNERS_ITEMS,
 		),
 	],
+	"ai-augmented": [
+		createModule(
+			"ai-augmented",
+			"AI-Augmented Foundations",
+			AI_AUGMENTED_FOUNDATIONS_ITEMS,
+		),
+	],
+	"strategic-product-design": [
+		createModule(
+			"strategic-product-design",
+			"Strategic & AI-Augmented Product Design",
+			STRATEGIC_PRODUCT_DESIGN_ITEMS,
+		),
+	],
 };
 
 export const BOOTCAMP_OFFERINGS: BootcampOffering[] = [
@@ -177,7 +230,7 @@ export const BOOTCAMP_OFFERINGS: BootcampOffering[] = [
 		price: "₦150,000",
 		cardStyle: "navy",
 		ctaLabel: "Claim Your Spot Now",
-		ctaHref: "/#book-a-call",
+		ctaHref: "https://wa.me/2347079443937",
 		availability: "Limited seats available each cohort",
 		curriculum: BOOTCAMP_CURRICULUM["advanced-class"],
 		details: [
@@ -197,13 +250,55 @@ export const BOOTCAMP_OFFERINGS: BootcampOffering[] = [
 		price: "₦250,000",
 		cardStyle: "midnight",
 		ctaLabel: "Claim Your Spot Now",
-		ctaHref: "/#book-a-call",
+		ctaHref: "https://wa.me/2347079443937",
 		availability: "Limited seats available each cohort",
 		curriculum: BOOTCAMP_CURRICULUM["mentorship-class"],
 		details: [
 			{ label: "Duration", value: "9 Weeks" },
 			{ label: "Schedule", value: "9 Weeks" },
 			{ label: "Format", value: "One on One Session" },
+			{
+				label: "Payment Plan",
+				value: "70% on Enrollment\n30% after One Month",
+			},
+		],
+	},
+	{
+		slug: "ai-augmented",
+		name: "AI-Augmented Foundations",
+		subtitle:
+			"For designers with 0–2 years experience who need to build strong fundamentals while learning to work AI-natively from day one.",
+		price: "₦200,000",
+		cardStyle: "navy",
+		ctaLabel: "Claim Your Spot Now",
+		ctaHref: "https://wa.me/2347079443937",
+		availability: "Limited seats available each cohort",
+		curriculum: BOOTCAMP_CURRICULUM["ai-augmented"],
+		details: [
+			{ label: "Duration", value: "6 Weeks" },
+			{ label: "Schedule", value: "2x/Week" },
+			{ label: "Format", value: "Live Virtual Training" },
+			{
+				label: "Payment Plan",
+				value: "70% on Enrollment\n30% after One Month",
+			},
+		],
+	},
+	{
+		slug: "strategic-product-design",
+		name: "Strategic & AI-Augmented Product Design",
+		subtitle:
+			"For designers with 2+ years experience moving into ownership, systems thinking, and AI-fluent leadership.",
+		price: "₦250,000",
+		cardStyle: "midnight",
+		ctaLabel: "Claim Your Spot Now",
+		ctaHref: "https://wa.me/2347079443937",
+		availability: "Limited seats available each cohort",
+		curriculum: BOOTCAMP_CURRICULUM["strategic-product-design"],
+		details: [
+			{ label: "Duration", value: "6 Weeks" },
+			{ label: "Schedule", value: "2x/Week" },
+			{ label: "Format", value: "Live Virtual Training" },
 			{
 				label: "Payment Plan",
 				value: "70% on Enrollment\n30% after One Month",
@@ -264,7 +359,7 @@ export type Testimonial = {
 	logoAlt: string;
 	quote: string;
 	body: string;
-	avatar: string;
+	avatar?: string;
 	name: string;
 	title: string;
 };
@@ -289,9 +384,8 @@ export const TESTIMONIALS: Testimonial[] = [
 		logo: secsystemsLogo,
 		logoAlt: "Secsystems",
 		quote:
-			"Ari design Co did an amazing job on the motion design for our Soft POS project. The animation brought our product to life and communicated the “tap to pay” experience to the users seamlessly.",
+			"Savi Design Studio did an amazing job on the motion design for our Soft POS project. The animation brought our product to life and communicated the “tap to pay” experience to the users seamlessly.",
 		body: "They were patient with feedback and clearly cared about the details. Would work with them again",
-		avatar: "",
 		name: "Adedamola Adeleye",
 		title: "CEO",
 	},
@@ -325,10 +419,9 @@ export const LOGOS: Logo[] = [
 
 export type ProjectPage = {
 	slug: string;
-	/** Reads under the thumbnail. The row already names the client, so this is
-	 *  only the page's role — "Shop", not "Home of Korean Beauty Shop". */
 	name: string;
 	thumbnail: string;
+	thumbnailMobile: string;
 };
 
 export type ProjectGroup = {
@@ -341,15 +434,6 @@ export type ProjectGroup = {
 	pages: ProjectPage[];
 };
 
-// These aren't case studies — there is no write-up behind them yet. All we have
-// per engagement is a set of thumbnails, the client, the kind of site and the
-// live URL, so the section links out rather than deeper into the site.
-//
-// TODO: `href` is a placeholder on every row until the production links land.
-//
-// Page order was read off the thumbnails in the browser rather than taken from
-// the design's caption order — `hok-2`/`hok-3` and `dera-1`/`dera-2` are the
-// reverse of what that order implies. Every client leads with its landing page.
 export const PROJECT_GROUPS: ProjectGroup[] = [
 	{
 		slug: "home-of-korean-beauty",
@@ -361,9 +445,20 @@ export const PROJECT_GROUPS: ProjectGroup[] = [
 				slug: "hok-landing",
 				name: "Landing Page",
 				thumbnail: projectHok3,
+				thumbnailMobile: projectHok3Mobile,
 			},
-			{ slug: "hok-shop", name: "Shop", thumbnail: projectHok1 },
-			{ slug: "hok-about", name: "About Us", thumbnail: projectHok2 },
+			{
+				slug: "hok-shop",
+				name: "Shop",
+				thumbnail: projectHok1,
+				thumbnailMobile: projectHok1Mobile,
+			},
+			{
+				slug: "hok-about",
+				name: "About Us",
+				thumbnail: projectHok2,
+				thumbnailMobile: projectHok2Mobile,
+			},
 		],
 	},
 	{
@@ -372,16 +467,23 @@ export const PROJECT_GROUPS: ProjectGroup[] = [
 		type: "E-commerce website",
 		href: "https://deranig.com/",
 		pages: [
-			{ slug: "dera-landing", name: "Landing Page", thumbnail: projectDera2 },
+			{
+				slug: "dera-landing",
+				name: "Landing Page",
+				thumbnail: projectDera2,
+				thumbnailMobile: projectDera2Mobile,
+			},
 			{
 				slug: "dera-product",
 				name: "Product Details",
 				thumbnail: projectDera1,
+				thumbnailMobile: projectDera1Mobile,
 			},
 			{
 				slug: "dera-styling-gel",
 				name: "Styling Gel",
 				thumbnail: projectDera3,
+				thumbnailMobile: projectDera3Mobile,
 			},
 		],
 	},
@@ -391,8 +493,32 @@ export const PROJECT_GROUPS: ProjectGroup[] = [
 		type: "Agency website",
 		href: "https://www.theclarifyhouse.com/",
 		pages: [
-			{ slug: "clarify-landing", name: "Landing Page", thumbnail: projectCh1 },
-			{ slug: "clarify-services", name: "Services", thumbnail: projectCh2 },
+			{
+				slug: "clarify-landing",
+				name: "Landing Page",
+				thumbnail: projectCh1,
+				thumbnailMobile: projectCh1Mobile,
+			},
+			{
+				slug: "clarify-services",
+				name: "Services",
+				thumbnail: projectCh2,
+				thumbnailMobile: projectCh2Mobile,
+			},
+		],
+	},
+	{
+		slug: "landsafe",
+		client: "LandSafe",
+		type: "PropTech website",
+		href: "https://www.landsafe.ng/",
+		pages: [
+			{
+				slug: "landsafe-shop",
+				name: "Shop",
+				thumbnail: projectLs2,
+				thumbnailMobile: projectLs1Mobile,
+			},
 		],
 	},
 ];

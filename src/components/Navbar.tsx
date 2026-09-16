@@ -67,7 +67,7 @@ export default function Navbar() {
 					</nav>
 
 					<Link
-						to="/#book-a-call"
+						to="http://calendly.com/savidesignstudio2"
 						className={buttonVariants({ variant: "solid" })}
 					>
 						Book a Call

@@ -124,6 +124,9 @@ export default function Hero({ onRegister }: { onRegister: () => void }) {
 					src={bootcampFlyer}
 					alt="Bootcamp flyer"
 					className="w-full lg:max-w-250"
+					loading="lazy"
+					width={1000}
+					height={1000}
 				/>
 			</div>
 		</motion.section>

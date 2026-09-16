@@ -1,8 +1,10 @@
 import { motion, type Variants } from "motion/react";
+import { Link } from "react-router";
 import griddedPattern from "../assets/gridded-pattern.avif";
 import { PROJECT_GROUPS } from "../lib/constants";
+import { shuffleCopy } from "../lib/shuffle";
+import { HeroProjectReel, type HeroProjectReelItem } from "./HeroProjectReel";
 import { buttonVariants } from "./ui/button";
-import { InfiniteSlider } from "./ui/infinite-slider";
 
 const HEADLINE = "Designing experiences and brands people love and remember";
 
@@ -11,14 +13,21 @@ const EYEBROW = "Build Your Online Identity Today";
 const BODY =
 	"Our team delivers high quality branding, design & development that helps shape the future of your business.";
 
-const PROJECT_REEL = PROJECT_GROUPS.flatMap((project) =>
-	project.pages.map((page) => ({
-		slug: page.slug,
-		client: project.client,
-		name: page.name,
-		src: page.thumbnail,
-	})),
+const PROJECT_REEL_ITEMS: HeroProjectReelItem[] = PROJECT_GROUPS.flatMap(
+	(project) =>
+		project.pages.map((page) => ({
+			slug: page.slug,
+			client: project.client,
+			name: page.name,
+			desktopSrc: page.thumbnail,
+			mobileSrc: page.thumbnailMobile,
+		})),
 );
+
+const FEATURED_PROJECT = PROJECT_REEL_ITEMS[0];
+const PROJECT_REEL = FEATURED_PROJECT
+	? [FEATURED_PROJECT, ...shuffleCopy(PROJECT_REEL_ITEMS.slice(1))]
+	: [];
 
 const stage: Variants = {
 	hidden: {},
@@ -48,15 +57,6 @@ const rise: Variants = {
 		opacity: 1,
 		y: 0,
 		transition: { type: "spring", stiffness: 300, damping: 32 },
-	},
-};
-
-const unveil: Variants = {
-	hidden: { opacity: 0, scale: 1.04 },
-	shown: {
-		opacity: 1,
-		scale: 1,
-		transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] },
 	},
 };
 
@@ -146,8 +146,8 @@ export default function Hero() {
 						variants={rise}
 						className="flex items-center gap-4 lg:gap-3"
 					>
-						<a
-							href="http://calendly.com/savidesignstudio2"
+						<Link
+							to="http://calendly.com/savidesignstudio2"
 							target="_blank"
 							rel="noopener noreferrer"
 							className={buttonVariants({ size: "cta", variant: "cta" })}
@@ -163,40 +163,23 @@ export default function Hero() {
 									className="size-5 transition-transform duration-200 ease-out group-hover/button:translate-x-px group-hover/button:-translate-y-px"
 								/>
 							</span>
-						</a>
+						</Link>
 
-						<a
-							href="https://wa.me/2347079443937"
+						<Link
+							to="https://wa.me/2347079443937"
+							className="border border-border rounded-sm px-3 py-2 bg-background hover:bg-muted"
 							target="_blank"
 							rel="noopener noreferrer"
-							className={buttonVariants({ variant: "outline" })}
 						>
 							Chat with us
-						</a>
+						</Link>
 					</motion.div>
 				</div>
 			</div>
 
 			<HatchBand />
 			<div className="w-full bg-surface-default py-2 lg:py-4">
-				<motion.div variants={unveil}>
-					<InfiniteSlider gap={16} speed={24} speedOnHover={8}>
-						{PROJECT_REEL.map((project, index) => (
-							<figure
-								key={project.slug}
-								className="w-[82vw] shrink-0 overflow-hidden bg-surface-page p-2 sm:w-[68vw] lg:w-[43vw] lg:p-4"
-							>
-								<img
-									src={project.src}
-									alt={`${project.client} ${project.name} website design`}
-									loading={index < 2 ? "eager" : "lazy"}
-									fetchPriority={index < 2 ? "high" : "auto"}
-									className="aspect-45/32 size-full select-none object-cover object-top"
-								/>
-							</figure>
-						))}
-					</InfiniteSlider>
-				</motion.div>
+				<HeroProjectReel projects={PROJECT_REEL} />
 			</div>
 
 			<HatchBand />

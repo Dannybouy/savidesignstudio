@@ -10,7 +10,7 @@ const STEPS = [
 	{
 		title: "Discovery",
 		description:
-			"We dig into your brand, audience, and goals. No guesswork — just clarity.",
+			"We dig into your brand, audience, and goals. No guesswork, just clarity.",
 	},
 	{
 		title: "Strategy",

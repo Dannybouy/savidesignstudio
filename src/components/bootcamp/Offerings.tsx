@@ -1,5 +1,3 @@
-import { motion, type Variants } from "motion/react";
-import { Link } from "react-router";
 import {
 	Accordion,
 	AccordionContent,
@@ -13,6 +11,8 @@ import {
 	type BootcampOffering,
 } from "@/lib/constants";
 import { cn } from "@/lib/utils";
+import { motion, type Variants } from "motion/react";
+import { Link } from "react-router";
 
 const stage: Variants = {
 	hidden: {},
@@ -36,19 +36,16 @@ const cardBackground: Record<BootcampOffering["cardStyle"], string> = {
 
 function CourseCard({
 	offering,
-	compact = false,
 	className,
 }: {
 	offering: BootcampOffering;
-	compact?: boolean;
 	className?: string;
 }) {
 	return (
 		<article
 			className={cn(
-				"relative isolate flex w-full flex-col overflow-hidden text-on-action",
+				"relative isolate flex w-full flex-col space-y-6 overflow-hidden text-on-action p-5 lg:p-6 min-h-84",
 				cardBackground[offering.cardStyle],
-				compact ? "min-h-84 p-5 lg:min-h-88 lg:p-6" : "min-h-96 p-5 lg:p-7",
 				className,
 			)}
 		>
@@ -59,31 +56,33 @@ function CourseCard({
 
 			<div className="relative">
 				<h4 className="text-h2 text-on-action">{offering.name}</h4>
-				<p className="mt-1 text-on-action/70 text-paragraph">
+				<p className="mt-1 text-on-action/70 text-sm lg:text-paragraph">
 					{offering.subtitle}
 				</p>
 			</div>
 
-			<dl className="relative mt-5 grid grid-cols-2 gap-x-4 gap-y-4 border-white/18 border-b py-4 sm:grid-cols-4">
+			<dl className="grid grid-cols-4 gap-x-4 gap-y-4 border-white/18 border-b">
 				{offering.details.map((detail) => (
-					<div key={detail.label} className="min-w-0">
+					<div key={detail.label} className="max-w-24">
 						<dt className="text-[0.6875rem] text-on-action/50 leading-4">
 							{detail.label}
 						</dt>
-						<dd className="mt-0.5 whitespace-pre-line text-[0.75rem] text-on-action leading-4">
+						<dd className="mt-0.5 whitespace-normal text-[0.75rem] text-on-action leading-4">
 							{detail.value}
 						</dd>
 					</div>
 				))}
 			</dl>
 
-			<p className="relative mt-5 font-heading text-[2rem] tracking-[-1px]">
-				{offering.price}
-			</p>
+			<div className="mt-auto">
+				<p className="relative mb-2 font-heading text-[2.5rem] tracking-[-1px]">
+					{offering.price}
+				</p>
 
-			<div className="relative mt-auto pt-7">
 				<Link
 					to={offering.ctaHref}
+					target="_blank"
+					rel="noopener noreferrer"
 					className={buttonVariants({
 						variant: "ghost",
 						size: "default",
@@ -176,7 +175,6 @@ function CompareAndExpand() {
 					<CourseCard
 						key={offering.slug}
 						offering={offering}
-						compact
 						className="w-[calc(100%-2rem)] shrink-0 snap-center sm:w-90 lg:w-auto lg:shrink"
 					/>
 				))}

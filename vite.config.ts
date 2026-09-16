@@ -13,7 +13,15 @@ export default defineConfig({
 	],
 	resolve: {
 		alias: {
-			"@": path.resolve(__dirname, "src"),
+			"@": path.resolve(import.meta.dirname, "src"),
+		},
+	},
+	build: {
+		rollupOptions: {
+			input: {
+				main: path.resolve(import.meta.dirname, "index.html"),
+				bootcamp: path.resolve(import.meta.dirname, "bootcamp.html"),
+			},
 		},
 	},
 });

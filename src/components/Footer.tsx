@@ -1,12 +1,13 @@
-import { motion, type Variants } from "motion/react";
 import footerBackground from "@/assets/footer-bg.avif";
 import { buttonVariants } from "@/components/ui/button";
 import { SOCIAL_LINKS, type SocialLink } from "@/lib/constants";
+import { motion, type Variants } from "motion/react";
+import { Link } from "react-router";
 
 const HEADLINE = "Ready to partner with us on your business or product?";
 
 const BODY =
-	"Everything you might need to know about our services and processes - from inception to delivery";
+	"Get in touch to discuss how we can help bring your vision to life, let's build something great together.";
 
 const stage: Variants = {
 	hidden: {},
@@ -88,7 +89,7 @@ export default function Footer() {
 								size: "cta",
 								variant: "outline",
 								className:
-									"mt-8 border-transparent bg-surface-page text-heading hover:bg-surface-default lg:mt-10",
+									"mt-8 border-transparent bg-surface-page text-heading hover:bg-surface-default hover:-translate-y-0.5 focus-visible:-translate-y-0.5 lg:mt-10",
 							})}
 						>
 							Grab A Free Call
@@ -133,15 +134,15 @@ export default function Footer() {
 						{SOCIAL_LINKS.map((social) => {
 							return (
 								<li key={social.platform}>
-									<a
-										href={social.href}
+									<Link
+										to={social.href}
 										target="_blank"
-										rel="noreferrer"
+										rel="noopener noreferrer"
 										aria-label={social.label}
 										className="block rounded-sm text-white transition-transform duration-200 hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-4 motion-reduce:transition-none"
 									>
 										<SocialIcon platform={social.platform} />
-									</a>
+									</Link>
 								</li>
 							);
 						})}

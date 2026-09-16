@@ -137,7 +137,9 @@ export default function Projects() {
 												src={page.thumbnail}
 												alt={`${group.client} — ${page.name}`}
 												loading="lazy"
-												className="size-full object-cover object-top"
+												className="block size-full object-cover object-top"
+												width={300}
+												height={300}
 											/>
 										</div>
 										<span className="text-body-secondary text-paragraph-sm">

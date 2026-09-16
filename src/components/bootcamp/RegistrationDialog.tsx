@@ -12,7 +12,7 @@ import {
 import { type Country, isValidPhoneNumber } from "react-phone-number-input";
 import countryNames from "react-phone-number-input/locale/en.json";
 import { z } from "zod";
-import bootcampFormImage from "@/assets/bootcamp-form-img.png";
+import bootcampFormImage from "@/assets/bootcamp-form-img.avif";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
