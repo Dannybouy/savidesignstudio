@@ -15,7 +15,7 @@ import Testimonials from "@/components/Testimonials";
 export default function HomePage() {
 	return (
 		<main className="relative">
-			<title>Savi Design Studio</title>
+			<title>Design Agency in Lagos, Nigeria | Savi Design Studio</title>
 			<Hero />
 			<About />
 			<Banner id="bootcamp">

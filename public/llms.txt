@@ -1,0 +1,27 @@
+# Savi Design Studio
+
+> Savi Design Studio is a design agency serving businesses in Lagos, across Nigeria and internationally. The studio provides branding, web design, web development, product design, UI/UX design and motion design. It also runs practical UI/UX bootcamps and design mentorship programs in Nigeria.
+
+## Main pages
+
+- [Savi Design Studio](https://savidesignstudios.com/): Agency services, selected client work, process, testimonials and frequently asked questions.
+- [UI/UX Design Bootcamp](https://savidesignstudios.com/bootcamp): Practical training in UI/UX design, Figma and AI tools, with portfolio projects, mentorship and career support.
+
+## Services
+
+- Brand strategy, visual identity and brand systems
+- Website design and development
+- Product and UI/UX design
+- Motion design
+- UI/UX bootcamps and design mentorship
+
+## Service area
+
+Savi Design Studio serves clients in Lagos, across Nigeria and internationally. Training programs are designed for learners in Nigeria and may also accept participants from other locations when stated on the bootcamp page.
+
+## Contact
+
+- Email: Savidesignstudio2@gmail.com
+- Phone and WhatsApp: +234 707 944 3937
+- LinkedIn: https://www.linkedin.com/company/savidesignstudio/
+- Instagram: https://www.instagram.com/savi_design_studio/

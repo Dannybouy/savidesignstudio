@@ -48,6 +48,14 @@ const rise: Variants = {
 // header row instead of pinned to the carousel's outer edges.
 const NAV_BUTTON_CLASS = "static my-0";
 
+function getInitials(name: string) {
+	const nameParts = name.trim().split(/\s+/).filter(Boolean);
+	const firstName = nameParts[0] ?? "";
+	const lastName = nameParts.at(-1) ?? "";
+
+	return `${firstName[0] ?? ""}${nameParts.length > 1 ? (lastName[0] ?? "") : ""}`.toUpperCase();
+}
+
 function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
 	return (
 		<Card className="h-full justify-between p-8 lg:p-10">
@@ -69,11 +77,20 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
 			</div>
 
 			<div className="flex items-center gap-3 pt-8">
-				<img
-					src={testimonial.avatar}
-					alt={testimonial.name}
-					className="size-11 shrink-0 rounded-full object-cover"
-				/>
+				{testimonial.avatar ? (
+					<img
+						src={testimonial.avatar}
+						alt={testimonial.name}
+						className="size-11 shrink-0 rounded-full object-cover"
+					/>
+				) : (
+					<div
+						aria-hidden="true"
+						className="flex size-11 shrink-0 items-center justify-center rounded-full bg-surface-action text-white text-paragraph-sm font-medium"
+					>
+						{getInitials(testimonial.name)}
+					</div>
+				)}
 				<div className="flex flex-col">
 					<span className="text-heading text-paragraph font-medium">
 						{testimonial.name}

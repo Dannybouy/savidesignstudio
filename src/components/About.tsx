@@ -65,10 +65,32 @@ const HOVER_LIFT =
 const CARD_SHELL =
 	"h-95.5 justify-between gap-0 rounded-lg px-4 shadow-none ring-0 [--card-spacing:--spacing(4)]";
 
-function CardArtwork({ src }: { src: string }) {
+function CardArtwork({
+	src,
+	width,
+	height,
+	overlay,
+}: {
+	src: string;
+	width: number;
+	height: number;
+	overlay?: boolean;
+}) {
 	return (
 		<div aria-hidden className="absolute inset-0 -z-10">
-			<img src={src} alt="" loading="lazy" className="size-full object-cover" />
+			{
+				overlay && (
+					<div className="absolute inset-0 bg-black/20"/>
+				)
+			}
+			<img
+				src={src}
+				alt="about card artwork"
+				loading="lazy"
+				className="block size-full object-cover"
+				width={width}
+				height={height}
+			/>
 		</div>
 	);
 }
@@ -119,7 +141,7 @@ export default function About() {
 						<Card
 							className={`${CARD_SHELL} ${HOVER_LIFT} relative isolate border-0 text-on-action`}
 						>
-							<CardArtwork src={cardImageOne} />
+							<CardArtwork src={cardImageOne} width={1248} height={702} overlay />
 							<p className="text-lg leading-6 tracking-[-0.5px] text-on-action/90">
 								Projects Delivered
 							</p>
@@ -176,7 +198,7 @@ export default function About() {
 							<Card
 								className={`${CARD_SHELL} relative isolate h-auto min-h-0 flex-row items-center border-0 text-on-action`}
 							>
-								<CardArtwork src={cardImageTwo} />
+								<CardArtwork src={cardImageTwo} width={384} height={100} />
 								<p className="text-lg leading-6 tracking-[-0.5px] text-[#d4d4d4]">
 									Global Clients
 								</p>
