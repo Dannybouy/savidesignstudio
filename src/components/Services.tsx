@@ -154,7 +154,7 @@ function ServiceMedia({
 					muted
 					loop
 					playsInline
-					preload="auto"
+					preload="metadata"
 					poster={media.poster}
 					className="size-full object-cover"
 				>
