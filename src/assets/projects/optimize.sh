@@ -15,7 +15,7 @@ for img in *.jpg *.jpeg; do
     output="${img%.*}.avif"
     echo "📸 Processing Photo: $img"
     # --min 22 --max 27 balances ultra-low file size with great color blending
-    avifenc --jobs all --speed 8 -q 81 "$img" "$output"
+    avifenc --jobs all --speed 8 -q 81 "$img" "$output" || exit 1
 done
 
 # 2. Compress Product Screenshots / UI (PNGs)
@@ -25,7 +25,7 @@ for img in *.png; do
     output="${img%.*}.avif"
     echo "🖥️  Processing Screenshot: $img"
     # --min 16 --max 22 keeps text ultra-sharp and stops UI lines from blurring
-    avifenc --jobs all --speed 8 -q 81 "$img" "$output"
+    avifenc --jobs all --speed 8 -q 81 "$img" "$output" || exit 1
 done
 
 echo "✅ Optimization complete! Your web assets are ready."

@@ -176,28 +176,28 @@ export const Facilitators: Facilitator[] = [
 		name: "Oluwatosin Ariyo",
 		role: "Product Designer (Lead Facilitator)",
 		image: facilitatorAriyo,
-		socialLink: "",
+		socialLink: "https://www.linkedin.com/in/oluwatosin-ariyo/",
 		bio: "Ariyo is a Product Designer specialized in helping businesses and companies design products that meet both user needs and business goals",
 	},
 	{
 		name: "Joseph Adesina",
 		role: "Product Designer",
 		image: facilitatorSina,
-		socialLink: "",
+		socialLink: "https://www.linkedin.com/in/joseph-adesina-72b158131/",
 		bio: "Joseph is a Senior Product Designer with 6+ years of experience spanning finance, logistics, insurance, Ed Tech and more."
 	},
 	{
 		name: "Aminat Olatunji",
 		role: "Product Designer",
 		image: facilitatorAminat,
-		socialLink: "",
+		socialLink: "https://www.linkedin.com/in/olatunjiaminatabiola/",
 		bio: "Aminat is a Product Designer with years of experience in helping startups/businesses gain clarity and build meaningful and converting products."
 	},
 	{
 		name: "Timi Dolor",
 		role: "Product Designer",
 		image: facilitatorTobi,
-		socialLink: "",
+		socialLink: "https://www.linkedin.com/in/timi-akpojewe-482396425/",
 		bio: "Timi is a Product Designer with more than 4 years of experience in designing scalable experiences for startups, SAAS companies and digital product teams."
 	},
 ];
