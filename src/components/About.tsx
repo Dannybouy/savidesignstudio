@@ -78,11 +78,7 @@ function CardArtwork({
 }) {
 	return (
 		<div aria-hidden className="absolute inset-0 -z-10">
-			{
-				overlay && (
-					<div className="absolute inset-0 bg-black/20"/>
-				)
-			}
+			{overlay && <div className="absolute inset-0 bg-black/20" />}
 			<img
 				src={src}
 				alt="about card artwork"
@@ -141,7 +137,12 @@ export default function About() {
 						<Card
 							className={`${CARD_SHELL} ${HOVER_LIFT} relative isolate border-0 text-on-action`}
 						>
-							<CardArtwork src={cardImageOne} width={1248} height={702} overlay />
+							<CardArtwork
+								src={cardImageOne}
+								width={1248}
+								height={702}
+								overlay
+							/>
 							<p className="text-lg leading-6 tracking-[-0.5px] text-on-action/90">
 								Projects Delivered
 							</p>

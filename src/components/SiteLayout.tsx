@@ -40,14 +40,6 @@ export default function SiteLayout() {
 		<MotionConfig reducedMotion="user">
 			<RouteScrollManager />
 			<div className="relative min-h-screen">
-				<div
-					aria-hidden
-					className="pointer-events-none absolute inset-y-0 left-1/2 hidden w-full max-w-360 -translate-x-1/2 lg:block"
-				>
-					<div className="absolute inset-y-0 left-20 w-px bg-hairline" />
-					<div className="absolute inset-y-0 right-20 w-px bg-hairline" />
-				</div>
-
 				<Navbar />
 				<Outlet />
 				<Footer />
