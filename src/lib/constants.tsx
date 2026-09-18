@@ -1,6 +1,10 @@
 import clarifyhouseCeo from "@/assets/clarifyhouse-ceo.png";
 import clarifyhouseLogo from "@/assets/clarifyhouse.svg";
 import deraLogo from "@/assets/dera.png";
+import facilitatorAriyo from "@/assets/facilitators-1.avif";
+import facilitatorSina from "@/assets/facilitators-2.avif";
+import facilitatorAminat from "@/assets/facilitators-3.avif";
+import facilitatorTobi from "@/assets/facilitators-4.avif";
 import hokLogo from "@/assets/hok.png";
 import landsafeCeo from "@/assets/landsafe-ceo.png";
 import landsafeLogo from "@/assets/landsafe.svg";
@@ -94,6 +98,7 @@ export type BootcampModule = {
 
 export type BootcampOffering = {
 	slug: string;
+	audience: string;
 	name: string;
 	subtitle: string;
 	price: string;
@@ -109,26 +114,20 @@ export type BootcampOffering = {
 };
 
 export const BOOTCAMP_OFFERINGS_COPY = {
-	eyebrow: "Current offerings",
-	title: "Choose how you want to learn",
-	description:
-		"Compare both paths and choose the class structure that fits how you work best.",
+	eyebrow: "Curriculum",
+	title: "What you'll be learning in 6 weeks",
 };
 
-const ADVANCED_UX_ITEMS = [
-	"Build the UX skills that clients and employers pay for.",
-	"Understand why UX matters and apply design thinking to solve real problems.",
-	"Research users properly, then turn findings into better design decisions.",
-	"Map full user journeys, from empathy maps to service blueprints.",
-	"Build and maintain design systems that scale.",
-	"Ship more than 40 web and mobile screens and build a portfolio that proves what you can do.",
-	"Test and prototype ideas before they go live.",
-	"Graduate with a polished, job-ready portfolio.",
-	"Practise real interview scenarios so you can explain your work clearly.",
-	"Earn a Certificate of Completion that validates your skills.",
+const UI_UX_FOUNDATIONS_ITEMS = [
+	"Week 1: UX Foundations & User Research",
+	"Week 2: Information Architecture & User Flows",
+	"Week 3: Wireframing & Prototyping",
+	"Week 4: UI Design & Design Systems",
+	"Week 5: Project Sprint",
+	"Week 6: Project Completion, Presentation & Portfolio Framing",
 ];
 
-const MENTORSHIP_UX_ITEMS = [
+/*const MENTORSHIP_UX_ITEMS = [
 	"Designed for anyone looking to go from zero to job-ready in UI/UX design.",
 	"Covers the complete curriculum from our Foundation and Advanced tracks.",
 	"Master industry-standard tools including Miro, Notion, Adobe Illustrator, and FigJam.",
@@ -139,29 +138,18 @@ const MENTORSHIP_UX_ITEMS = [
 	"Earn a verified Certificate of Completion.",
 	"Career coaching, job referrals, and placement assistance when openings arise.",
 	"A 6-week internship opportunity upon finishing the program.",
-];
-
-const AI_FOR_DESIGNERS_ITEMS = [
-	"Use ChatGPT, Claude, and Figma Make to move from a blank canvas to polished screens faster.",
-	"Write prompts for UI layouts, user personas, UX copy, and microcopy without losing time to rewrites.",
-	"Use AI to synthesize interviews, spot patterns, and turn raw feedback into design decisions.",
-	"Know when to follow AI suggestions and when to push back, so you stay in control of the creative process.",
-	"Understand how AI is changing client expectations and position yourself ahead of the curve.",
-];
+];*/
 
 const AI_AUGMENTED_FOUNDATIONS_ITEMS = [
-	"The New Shape of Product Design.",
-	"Design Thinking, Reframed",
-	"UX Research Fundamentals + AI Co-Research",
-	"Information Architecture & User Flows",
-	"Wireframing & Ideation, Accelerated",
-	"Figma Fundamentails + AI Plugins",
-	"UI Design Principles in a Post-Template World",
-	"Prototyping & AI-Assited Motion",
-	"Projct Sprint",
-	"Project Completion, Presentation & Portfolio Framing",
+	"Week 1: Foundations in an AI-First Industry",
+	"Week 2: Research in the Age of Synthetic Data",
+	"Week 3: Designing With AI as a Collaborator",
+	"Week 4: Visual Design, Prototyping & Judgment",
+	"Week 5: Project Sprint",
+	"Week 6: Project Completion, Presentation & Portfolio Framing",
 ];
 
+/*
 const STRATEGIC_PRODUCT_DESIGN_ITEMS = [
 	"Advanced UX Research & Insight Synthesis",
 	"Product Thinking & Strategy",
@@ -174,6 +162,45 @@ const STRATEGIC_PRODUCT_DESIGN_ITEMS = [
 	"Capstone Project Sprint",
 	"Capstone Completion & Demo Day",
 ];
+	*/
+
+export type Facilitator = {
+	name: string;
+	role: string;
+	image: string;
+	socialLink: string;
+	bio: string;
+};
+export const Facilitators: Facilitator[] = [
+	{
+		name: "Oluwatosin Ariyo",
+		role: "Product Designer (Lead Facilitator)",
+		image: facilitatorAriyo,
+		socialLink: "https://www.linkedin.com/in/oluwatosin-ariyo/",
+		bio: "Ariyo is a Product Designer specialized in helping businesses and companies design products that meet both user needs and business goals",
+	},
+	{
+		name: "Joseph Adesina",
+		role: "Product Designer",
+		image: facilitatorSina,
+		socialLink: "https://www.linkedin.com/in/joseph-adesina-72b158131/",
+		bio: "Joseph is a Senior Product Designer with 6+ years of experience spanning finance, logistics, insurance, Ed Tech and more."
+	},
+	{
+		name: "Aminat Olatunji",
+		role: "Product Designer",
+		image: facilitatorAminat,
+		socialLink: "https://www.linkedin.com/in/olatunjiaminatabiola/",
+		bio: "Aminat is a Product Designer with years of experience in helping startups/businesses gain clarity and build meaningful and converting products."
+	},
+	{
+		name: "Timi Dolor",
+		role: "Product Designer",
+		image: facilitatorTobi,
+		socialLink: "https://www.linkedin.com/in/timi-akpojewe-482396425/",
+		bio: "Timi is a Product Designer with more than 4 years of experience in designing scalable experiences for startups, SAAS companies and digital product teams."
+	},
+];
 
 function createModule(
 	slug: string,
@@ -184,26 +211,14 @@ function createModule(
 }
 
 export const BOOTCAMP_CURRICULUM: Record<
-	| "advanced-class"
-	| "mentorship-class"
-	| "ai-augmented"
-	| "strategic-product-design",
+	"ui-ux-foundations" | "ai-augmented",
 	BootcampModule[]
 > = {
-	"advanced-class": [
-		createModule("ux-design", "UX Design", ADVANCED_UX_ITEMS),
+	"ui-ux-foundations": [
 		createModule(
-			"ai-for-designers",
-			"AI for Designers",
-			AI_FOR_DESIGNERS_ITEMS,
-		),
-	],
-	"mentorship-class": [
-		createModule("ux-design", "UX Design", MENTORSHIP_UX_ITEMS),
-		createModule(
-			"ai-for-designers",
-			"AI for Designers",
-			AI_FOR_DESIGNERS_ITEMS,
+			"ui-ux-foundations",
+			"UI/UX Foundations",
+			UI_UX_FOUNDATIONS_ITEMS,
 		),
 	],
 	"ai-augmented": [
@@ -213,6 +228,7 @@ export const BOOTCAMP_CURRICULUM: Record<
 			AI_AUGMENTED_FOUNDATIONS_ITEMS,
 		),
 	],
+	/*
 	"strategic-product-design": [
 		createModule(
 			"strategic-product-design",
@@ -220,9 +236,55 @@ export const BOOTCAMP_CURRICULUM: Record<
 			STRATEGIC_PRODUCT_DESIGN_ITEMS,
 		),
 	],
+	*/
 };
 
 export const BOOTCAMP_OFFERINGS: BootcampOffering[] = [
+	{
+		slug: "ui-ux-foundations",
+		audience: "Total Beginners",
+		name: "UI/UX Foundations",
+		subtitle:
+			"For designers with 0–6 months of learning experience who need to build strong fundamentals while learning to work with AI tools.",
+		price: "₦100,000",
+		cardStyle: "navy",
+		ctaLabel: "Claim Your Spot Now",
+		ctaHref: "https://wa.me/2347079443937",
+		availability: "Limited seats available each cohort",
+		curriculum: BOOTCAMP_CURRICULUM["ui-ux-foundations"],
+		details: [
+			{ label: "Duration", value: "6 Weeks" },
+			{ label: "Schedule", value: "2x/Week" },
+			{ label: "Format", value: "Live Virtual Training" },
+			{
+				label: "Payment Plan",
+				value: "free",
+			},
+		],
+	},
+	{
+		slug: "ai-augmented",
+		audience: "Junior Designers",
+		name: "AI-Augmented Foundations",
+		subtitle:
+			"For designers with 0–2 years experience who need to build strong fundamentals while learning to work AI-natively from day one.",
+		price: "₦150,000",
+		cardStyle: "navy",
+		ctaLabel: "Claim Your Spot Now",
+		ctaHref: "https://wa.me/2347079443937",
+		availability: "Limited seats available each cohort",
+		curriculum: BOOTCAMP_CURRICULUM["ai-augmented"],
+		details: [
+			{ label: "Duration", value: "6 Weeks" },
+			{ label: "Schedule", value: "2x/Week" },
+			{ label: "Format", value: "Live Virtual Training" },
+			{
+				label: "Payment Plan",
+				value: "free",
+			},
+		],
+	},
+	/*
 	{
 		slug: "advanced-class",
 		name: "Advanced Class",
@@ -263,27 +325,7 @@ export const BOOTCAMP_OFFERINGS: BootcampOffering[] = [
 			},
 		],
 	},
-	{
-		slug: "ai-augmented",
-		name: "AI-Augmented Foundations",
-		subtitle:
-			"For designers with 0–2 years experience who need to build strong fundamentals while learning to work AI-natively from day one.",
-		price: "₦200,000",
-		cardStyle: "navy",
-		ctaLabel: "Claim Your Spot Now",
-		ctaHref: "https://wa.me/2347079443937",
-		availability: "Limited seats available each cohort",
-		curriculum: BOOTCAMP_CURRICULUM["ai-augmented"],
-		details: [
-			{ label: "Duration", value: "6 Weeks" },
-			{ label: "Schedule", value: "2x/Week" },
-			{ label: "Format", value: "Live Virtual Training" },
-			{
-				label: "Payment Plan",
-				value: "70% on Enrollment\n30% after One Month",
-			},
-		],
-	},
+
 	{
 		slug: "strategic-product-design",
 		name: "Strategic & AI-Augmented Product Design",
@@ -305,6 +347,7 @@ export const BOOTCAMP_OFFERINGS: BootcampOffering[] = [
 			},
 		],
 	},
+	*/
 ];
 
 export type BootcampTool = {

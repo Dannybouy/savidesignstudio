@@ -1,8 +1,8 @@
+import { motion, type Variants } from "motion/react";
+import { Link } from "react-router";
 import footerBackground from "@/assets/footer-bg.avif";
 import { buttonVariants } from "@/components/ui/button";
 import { SOCIAL_LINKS, type SocialLink } from "@/lib/constants";
-import { motion, type Variants } from "motion/react";
-import { Link } from "react-router";
 
 const HEADLINE = "Ready to partner with us on your business or product?";
 

@@ -1,3 +1,5 @@
+import { motion, type Variants } from "motion/react";
+import { Link } from "react-router";
 import {
 	Accordion,
 	AccordionContent,
@@ -11,8 +13,6 @@ import {
 	type BootcampOffering,
 } from "@/lib/constants";
 import { cn } from "@/lib/utils";
-import { motion, type Variants } from "motion/react";
-import { Link } from "react-router";
 
 const stage: Variants = {
 	hidden: {},
@@ -49,25 +49,25 @@ function CourseCard({
 				className,
 			)}
 		>
-			<div
-				aria-hidden
-				className="pointer-events-none absolute -top-14 -right-10 size-40 rounded-full border border-white/8"
-			/>
-
-			<div className="relative">
+			<div className="relative space-y-2">
+				<div className="flex items-center justify-between bg-white/20 p-1 rounded-xs w-fit">
+					<p className="text-white text-paragraph-sm">{offering.audience}</p>
+				</div>
 				<h4 className="text-h2 text-on-action">{offering.name}</h4>
-				<p className="mt-1 text-on-action/70 text-sm lg:text-paragraph">
+				<p className="text-[#d4d4d4] text-sm text-pretty lg:text-paragraph lg:max-w-3/4">
 					{offering.subtitle}
 				</p>
 			</div>
 
-			<dl className="grid grid-cols-4 gap-x-4 gap-y-4 border-white/18 border-b">
+			<div className="border-white/18 border-t"/>
+
+			<dl className="grid grid-cols-4 gap-x-4 gap-y-4">
 				{offering.details.map((detail) => (
 					<div key={detail.label} className="max-w-24">
 						<dt className="text-[0.6875rem] text-on-action/50 leading-4">
 							{detail.label}
 						</dt>
-						<dd className="mt-0.5 whitespace-normal text-[0.75rem] text-on-action leading-4">
+						<dd className="mt-0.5 whitespace-normal text-[0.75rem] text-on-action leading-4 capitalize">
 							{detail.value}
 						</dd>
 					</div>
@@ -75,7 +75,7 @@ function CourseCard({
 			</dl>
 
 			<div className="mt-auto">
-				<p className="relative mb-2 font-heading text-[2.5rem] tracking-[-1px]">
+				<p className="relative mb-2 font-heading text-[2.5rem] tracking-[-1px] line-through">
 					{offering.price}
 				</p>
 
@@ -87,7 +87,7 @@ function CourseCard({
 						variant: "ghost",
 						size: "default",
 						className:
-							"bg-surface-page pr-1 text-heading hover:bg-surface-page/90",
+							"bg-surface-page text-heading hover:bg-surface-page/90",
 					})}
 				>
 					{offering.ctaLabel}
@@ -102,7 +102,7 @@ function CourseCard({
 						/>
 					</span>
 				</Link>
-				<p className="mt-2 text-[0.6875rem] text-on-action/55 leading-4">
+				<p className="mt-2 text-sm text-[#d4d4d4] leading-4">
 					{offering.availability}
 				</p>
 			</div>
@@ -166,10 +166,7 @@ function CurriculumSection({ offering }: { offering: BootcampOffering }) {
 
 function CompareAndExpand() {
 	return (
-		<article className="mt-10 lg:mt-14">
-			<p className="text-body-secondary text-paragraph-sm lg:hidden">
-				Swipe to compare both classes
-			</p>
+		<article className="mt-10 lg:mt-20">
 			<div className="-mx-6 mt-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-4 scrollbar-none [&::-webkit-scrollbar]:hidden lg:mx-0 lg:mt-8 lg:grid lg:grid-cols-2 lg:overflow-visible lg:px-0 lg:pb-0">
 				{BOOTCAMP_OFFERINGS.map((offering) => (
 					<CourseCard
@@ -197,23 +194,17 @@ export default function Offerings() {
 			variants={stage}
 			className="bg-surface-page"
 		>
-			<div className="mx-auto w-full max-w-360 px-6 py-20 lg:px-20 lg:py-28">
-				<div className="max-w-180">
+			<div className="mx-auto w-full px-6 py-20 lg:px-20">
+				<div className="flex flex-col items-center">
 					<motion.p
 						variants={rise}
-						className="inline-flex bg-surface-disabled px-2 py-1 text-heading text-paragraph-sm"
+						className="inline-flex bg-surface-disabled px-2 py-1 text-heading text-paragraph-sm rounded"
 					>
 						{BOOTCAMP_OFFERINGS_COPY.eyebrow}
 					</motion.p>
 					<motion.h2 variants={rise} className="mt-4 text-h1-mobile lg:text-h1">
 						{BOOTCAMP_OFFERINGS_COPY.title}
 					</motion.h2>
-					<motion.p
-						variants={rise}
-						className="mt-4 max-w-155 text-body-secondary text-paragraph lg:text-paragraph-lg"
-					>
-						{BOOTCAMP_OFFERINGS_COPY.description}
-					</motion.p>
 				</div>
 
 				<CompareAndExpand />
