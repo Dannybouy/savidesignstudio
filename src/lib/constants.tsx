@@ -485,20 +485,20 @@ export const PROJECT_GROUPS: ProjectGroup[] = [
 		href: "https://www.homeofkoreanbeauty.com/",
 		pages: [
 			{
-				slug: "hok-landing",
-				name: "Landing Page",
+				slug: "hok-about",
+				name: "About Us",
 				thumbnail: projectHok3,
 				thumbnailMobile: projectHok3Mobile,
 			},
 			{
-				slug: "hok-shop",
-				name: "Shop",
+				slug: "hok-landing",
+				name: "Landing Page",
 				thumbnail: projectHok1,
 				thumbnailMobile: projectHok1Mobile,
 			},
 			{
-				slug: "hok-about",
-				name: "About Us",
+				slug: "hok-products",
+				name: "Products Page",
 				thumbnail: projectHok2,
 				thumbnailMobile: projectHok2Mobile,
 			},
@@ -557,8 +557,8 @@ export const PROJECT_GROUPS: ProjectGroup[] = [
 		href: "https://www.landsafe.ng/",
 		pages: [
 			{
-				slug: "landsafe-shop",
-				name: "Shop",
+				slug: "landsafe-landing",
+				name: "Landing Page",
 				thumbnail: projectLs2,
 				thumbnailMobile: projectLs1Mobile,
 			},
