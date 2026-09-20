@@ -47,7 +47,7 @@ const SUPPORTED_COUNTRY_NAMES = new Set([
 ]);
 // END GENERATED COUNTRY LIST
 const DUPLICATE_REGISTRATION_CONTACT =
-  " To update your details, email Savidesignstudio2@gmail.com.";
+  " To update your details, email info@savidesignstudios.com";
 
 const COLUMN_DEFINITIONS = [
   { key: "name", header: "Name", required: true },

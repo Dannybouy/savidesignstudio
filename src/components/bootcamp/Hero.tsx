@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 
 const HEADLINE = "Learn to think and design like a PRO";
 const BODY =
-	"Our team delivers high quality branding, design & development that helps shape the future of your business.";
+	"Master the skills to design intuitive, user-centered digital experiences from research and wireframing to polished, production-ready interfaces.";
 
 const stage: Variants = {
 	hidden: {},
