@@ -1,13 +1,13 @@
-import clarifyhouseCeo from "@/assets/clarifyhouse-ceo.png";
 import clarifyhouseLogo from "@/assets/clarifyhouse.svg";
+import clarifyhouseCeo from "@/assets/clarifyhouse-ceo.png";
 import deraLogo from "@/assets/dera.png";
 import facilitatorAriyo from "@/assets/facilitators-1.avif";
 import facilitatorSina from "@/assets/facilitators-2.avif";
 import facilitatorAminat from "@/assets/facilitators-3.avif";
 import facilitatorTobi from "@/assets/facilitators-4.avif";
 import hokLogo from "@/assets/hok.png";
-import landsafeCeo from "@/assets/landsafe-ceo.png";
 import landsafeLogo from "@/assets/landsafe.svg";
+import landsafeCeo from "@/assets/landsafe-ceo.png";
 import projectCh1Mobile from "@/assets/project-ch-mobile-1.avif";
 import projectCh2Mobile from "@/assets/project-ch-mobile-2.avif";
 import projectCh1 from "@/assets/project-ch-web-1.avif";
@@ -181,24 +181,24 @@ export const Facilitators: Facilitator[] = [
 	},
 	{
 		name: "Joseph Adesina",
-		role: "Product Designer",
+		role: "Senior Product Designer",
 		image: facilitatorSina,
 		socialLink: "https://www.linkedin.com/in/joseph-adesina-72b158131/",
-		bio: "Joseph is a Senior Product Designer with 6+ years of experience spanning finance, logistics, insurance, Ed Tech and more."
+		bio: "Joseph is a Senior Product Designer with 6+ years of experience spanning finance, logistics, insurance, Ed Tech and more.",
 	},
 	{
 		name: "Aminat Olatunji",
 		role: "Product Designer",
 		image: facilitatorAminat,
 		socialLink: "https://www.linkedin.com/in/olatunjiaminatabiola/",
-		bio: "Aminat is a Product Designer with years of experience in helping startups/businesses gain clarity and build meaningful and converting products."
+		bio: "Aminat is a Product Designer with years of experience in helping startups/businesses gain clarity and build meaningful and converting products.",
 	},
 	{
 		name: "Timi Dolor",
 		role: "Product Designer",
 		image: facilitatorTobi,
 		socialLink: "https://www.linkedin.com/in/timi-akpojewe-482396425/",
-		bio: "Timi is a Product Designer with more than 4 years of experience in designing scalable experiences for startups, SAAS companies and digital product teams."
+		bio: "Timi is a Product Designer with more than 4 years of experience in designing scalable experiences for startups, SAAS companies and digital product teams.",
 	},
 ];
 

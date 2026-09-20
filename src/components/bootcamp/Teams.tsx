@@ -31,7 +31,7 @@ export default function Teams() {
 									loading="lazy"
 									className="block w-full"
 								/>
-								<div className="pointer-events-none absolute inset-x-0 bottom-0 translate-y-full bg-surface-action-secondary/10 backdrop-blur-xs p-4 text-on-action transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover/image:translate-y-0 motion-reduce:transition-none">
+								<div className="pointer-events-none absolute inset-x-0 bottom-0 translate-y-full bg-surface-action-secondary/10 backdrop-blur-xs p-4 text-on-action transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover/image:translate-y-0 motion-reduce:transition-none rounded-tl-3xl rounded-tr-3xl">
 									<p className="text-sm leading-5">{facilitator.bio}</p>
 								</div>
 							</div>

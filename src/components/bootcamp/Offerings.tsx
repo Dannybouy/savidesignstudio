@@ -1,12 +1,11 @@
 import { motion, type Variants } from "motion/react";
-import { Link } from "react-router";
 import {
 	Accordion,
 	AccordionContent,
 	AccordionItem,
 	AccordionTrigger,
 } from "@/components/ui/accordion";
-import { buttonVariants } from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 import {
 	BOOTCAMP_OFFERINGS,
 	BOOTCAMP_OFFERINGS_COPY,
@@ -37,9 +36,11 @@ const cardBackground: Record<BootcampOffering["cardStyle"], string> = {
 function CourseCard({
 	offering,
 	className,
+	onRegister,
 }: {
 	offering: BootcampOffering;
 	className?: string;
+	onRegister: () => void;
 }) {
 	return (
 		<article
@@ -59,7 +60,7 @@ function CourseCard({
 				</p>
 			</div>
 
-			<div className="border-white/18 border-t"/>
+			<div className="border-white/18 border-t" />
 
 			<dl className="grid grid-cols-4 gap-x-4 gap-y-4">
 				{offering.details.map((detail) => (
@@ -79,16 +80,12 @@ function CourseCard({
 					{offering.price}
 				</p>
 
-				<Link
-					to={offering.ctaHref}
-					target="_blank"
-					rel="noopener noreferrer"
-					className={buttonVariants({
-						variant: "ghost",
-						size: "default",
-						className:
-							"bg-surface-page text-heading hover:bg-surface-page/90",
-					})}
+				<Button
+					type="button"
+					variant="ghost"
+					size="default"
+					onClick={onRegister}
+					className="bg-surface-page text-heading hover:bg-surface-page/90"
 				>
 					{offering.ctaLabel}
 					<span
@@ -101,7 +98,7 @@ function CourseCard({
 							className="size-4 brightness-0 invert"
 						/>
 					</span>
-				</Link>
+				</Button>
 				<p className="mt-2 text-sm text-[#d4d4d4] leading-4">
 					{offering.availability}
 				</p>
@@ -164,7 +161,7 @@ function CurriculumSection({ offering }: { offering: BootcampOffering }) {
 	);
 }
 
-function CompareAndExpand() {
+function CompareAndExpand({ onRegister }: { onRegister: () => void }) {
 	return (
 		<article className="mt-10 lg:mt-20">
 			<div className="-mx-6 mt-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-4 scrollbar-none [&::-webkit-scrollbar]:hidden lg:mx-0 lg:mt-8 lg:grid lg:grid-cols-2 lg:overflow-visible lg:px-0 lg:pb-0">
@@ -172,6 +169,7 @@ function CompareAndExpand() {
 					<CourseCard
 						key={offering.slug}
 						offering={offering}
+						onRegister={onRegister}
 						className="w-[calc(100%-2rem)] shrink-0 snap-center sm:w-90 lg:w-auto lg:shrink"
 					/>
 				))}
@@ -184,7 +182,7 @@ function CompareAndExpand() {
 	);
 }
 
-export default function Offerings() {
+export default function Offerings({ onRegister }: { onRegister: () => void }) {
 	return (
 		<motion.section
 			id="offerings"
@@ -207,7 +205,7 @@ export default function Offerings() {
 					</motion.h2>
 				</div>
 
-				<CompareAndExpand />
+				<CompareAndExpand onRegister={onRegister} />
 			</div>
 		</motion.section>
 	);
