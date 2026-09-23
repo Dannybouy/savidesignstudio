@@ -7,6 +7,11 @@ import {
 } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import {
+	REGISTRATION_CLOSED,
+	REGISTRATION_CLOSED_LABEL,
+	REGISTRATION_CLOSED_MESSAGE,
+} from "@/lib/bootcamp-registration";
+import {
 	BOOTCAMP_OFFERINGS,
 	BOOTCAMP_OFFERINGS_COPY,
 	type BootcampOffering,
@@ -84,23 +89,28 @@ function CourseCard({
 					type="button"
 					variant="ghost"
 					size="default"
+					disabled={REGISTRATION_CLOSED}
 					onClick={onRegister}
-					className="bg-surface-page text-heading hover:bg-surface-page/90"
+					className="bg-surface-page text-heading hover:bg-surface-page/90 disabled:bg-surface-page disabled:text-body-secondary disabled:opacity-100"
 				>
-					{offering.ctaLabel}
-					<span
-						aria-hidden
-						className="grid size-7 place-items-center rounded-sm bg-action-gradient"
-					>
-						<img
-							src="/icons/arrow-up-right.svg"
-							alt=""
-							className="size-4 brightness-0 invert"
-						/>
-					</span>
+					{REGISTRATION_CLOSED ? REGISTRATION_CLOSED_LABEL : offering.ctaLabel}
+					{REGISTRATION_CLOSED ? null : (
+						<span
+							aria-hidden
+							className="grid size-7 place-items-center rounded-sm bg-action-gradient"
+						>
+							<img
+								src="/icons/arrow-up-right.svg"
+								alt=""
+								className="size-4 brightness-0 invert"
+							/>
+						</span>
+					)}
 				</Button>
 				<p className="mt-2 text-sm text-[#d4d4d4] leading-4">
-					{offering.availability}
+					{REGISTRATION_CLOSED
+						? REGISTRATION_CLOSED_MESSAGE
+						: offering.availability}
 				</p>
 			</div>
 		</article>

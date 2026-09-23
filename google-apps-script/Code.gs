@@ -1,5 +1,8 @@
 const SHEET_NAME = "";
 const RESPONSE_SOURCE = "savi-bootcamp-registration";
+// Keep in sync with REGISTRATION_CLOSED in src/lib/bootcamp-registration.ts.
+const REGISTRATION_CLOSED = true;
+const REGISTRATION_CLOSED_MESSAGE = "Bootcamp registration has ended.";
 
 const OCCUPATIONS = [
   "Student",
@@ -64,13 +67,36 @@ const COLUMN_DEFINITIONS = [
 ];
 
 function doGet() {
-  return jsonResponse_({ ok: true, service: "Savi Design bootcamp registration" });
+  return jsonResponse_({
+    ok: true,
+    service: "Savi Design bootcamp registration",
+    registrationOpen: !REGISTRATION_CLOSED,
+  });
+}
+
+function submissionIdFromEvent_(event) {
+  try {
+    const payload = parsePayload_(event);
+    return String((payload && payload.submissionId) || "");
+  } catch (error) {
+    return "";
+  }
 }
 
 function doPost(event) {
   let submissionId = "";
 
   try {
+    if (REGISTRATION_CLOSED) {
+      submissionId = submissionIdFromEvent_(event);
+      return browserResponse_({
+        source: RESPONSE_SOURCE,
+        submissionId: submissionId,
+        ok: false,
+        error: REGISTRATION_CLOSED_MESSAGE,
+      });
+    }
+
     const payload = parsePayload_(event);
     submissionId = requiredSubmissionId_(payload.submissionId);
 
