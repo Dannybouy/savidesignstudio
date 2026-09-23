@@ -107,7 +107,7 @@ export default function Footer() {
 
 						<motion.a
 							variants={rise}
-							href="mailto:Savidesignstudio2@gmail.com"
+							href="mailto:info@savidesignstudios.com"
 							target="_blank"
 							rel="noopener noreferrer"
 							className={buttonVariants({

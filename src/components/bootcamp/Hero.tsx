@@ -1,6 +1,11 @@
 import { motion, type Variants } from "motion/react";
 import bootcampFlyer from "@/assets/bootcamp-flyer.avif";
 import { Button } from "@/components/ui/button";
+import {
+	REGISTRATION_CLOSED,
+	REGISTRATION_CLOSED_LABEL,
+	REGISTRATION_CLOSED_MESSAGE,
+} from "@/lib/bootcamp-registration";
 
 const HEADLINE = "Learn to think and design like a PRO";
 const BODY =
@@ -92,26 +97,39 @@ export default function Hero({ onRegister }: { onRegister: () => void }) {
 						{BODY}
 					</motion.p>
 
-					<motion.div variants={rise} className="mt-4 lg:mt-6">
+					<motion.div
+						variants={rise}
+						className="mt-4 flex flex-col items-start gap-3 lg:mt-6 lg:items-center"
+					>
 						<Button
 							type="button"
 							variant="cta"
 							size="cta"
+							disabled={REGISTRATION_CLOSED}
 							onClick={onRegister}
-							className="lg:px-4"
+							className="lg:px-4 disabled:text-white disabled:opacity-85 disabled:shadow-none disabled:cursor-not-allowed"
 						>
-							Register for the Free Bootcamp
-							<span
-								aria-hidden
-								className="grid size-8 shrink-0 place-items-center rounded-sm bg-surface-page shadow-[inset_-2px_2px_2px_0_rgb(255_255_255/0.25)] lg:hidden"
-							>
-								<img
-									src="/icons/arrow-up-right.svg"
-									alt=""
-									className="size-5 transition-transform duration-200 ease-out group-hover/button:translate-x-px group-hover/button:-translate-y-px"
-								/>
-							</span>
+							{REGISTRATION_CLOSED
+								? REGISTRATION_CLOSED_LABEL
+								: "Register for the Free Bootcamp"}
+							{REGISTRATION_CLOSED ? null : (
+								<span
+									aria-hidden
+									className="grid size-8 shrink-0 place-items-center rounded-sm bg-surface-page shadow-[inset_-2px_2px_2px_0_rgb(255_255_255/0.25)] lg:hidden"
+								>
+									<img
+										src="/icons/arrow-up-right.svg"
+										alt=""
+										className="size-5 transition-transform duration-200 ease-out group-hover/button:translate-x-px group-hover/button:-translate-y-px"
+									/>
+								</span>
+							)}
 						</Button>
+						{REGISTRATION_CLOSED ? (
+							<p className="text-body-secondary text-paragraph-sm">
+								{REGISTRATION_CLOSED_MESSAGE}
+							</p>
+						) : null}
 					</motion.div>
 				</div>
 			</div>
