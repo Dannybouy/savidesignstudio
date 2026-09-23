@@ -1,3 +1,10 @@
+/** Flip to `false` to accept bootcamp registrations again. */
+export const REGISTRATION_CLOSED: boolean = true;
+
+export const REGISTRATION_CLOSED_LABEL = "Registration has ended";
+
+export const REGISTRATION_CLOSED_MESSAGE = "Bootcamp registration has ended.";
+
 export interface BootcampRegistrationPayload {
 	name: string;
 	email: string;
@@ -50,6 +57,10 @@ function isSubmissionResponse(value: unknown): value is SubmissionResponse {
 export async function submitBootcampRegistration(
 	payload: BootcampRegistrationPayload,
 ) {
+	if (REGISTRATION_CLOSED) {
+		throw new Error(REGISTRATION_CLOSED_MESSAGE);
+	}
+
 	const endpoint = import.meta.env.VITE_GOOGLE_SHEETS_WEB_APP_URL?.trim();
 
 	if (!endpoint) {
